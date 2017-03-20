@@ -1,0 +1,95 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header" style="padding-top: 10px; padding-bottom: 10px;width: 100%;">
+			<img ng-src="assets/img/entreprenity-logo.png" width="150px">
+			<button type="button" class="navbar-toggle navbar-right" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed" style="display:block;">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+	</div>
+</div>
+
+<!--
+<div id="registerPage">
+	<div class="container">
+		<div class="formContainer">
+			<img class="img-circle" ng-src="assets/img/entreprenity-icon.png">
+			<h2>Register</h2>
+			<h3>Personal Details</h3>
+			<form name="form" ng-submit="vm.register()" role="form">
+				<div class="form-group" ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
+					<label for="username">First name</label>
+					<input type="text" name="firstName" id="firstName" class="form-control" ng-model="vm.user.firstName" required />
+					<span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block">First name is required</span>
+				</div>
+				<div class="form-group" ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }">
+					<label for="username">Last name</label>
+					<input type="text" name="lastName" id="lastName" class="form-control" ng-model="vm.user.lastName" required />
+					<span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last name is required</span>
+				</div>
+				<div class="form-group">
+					<label>
+						<input type="radio" ng-model="vm.user.gender" value="male">
+						Male
+					</label><br/>
+					<label>
+						<input type="radio" ng-model="vm.user.gender" value="female">
+						Female
+					</label>	
+				</div>
+
+				<h4>Popup</h4>
+				<p class="input-group">
+					<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</p>
+
+				<div class="form-group" ng-class="{ 'has-error': form.location.$dirty && form.location.$error.required }">
+					<label for="location">Location</label><br>
+					<select name="location" ng-model="vm.user.location">
+						<option value="option1">Makati</option>
+						<option value="option2">Taguig</option>
+					</select>
+					<span ng-show="form.location.$dirty && form.location.$error.required" class="help-block">Location is required</span>
+				</div>
+				<h3>Login Details</h3>
+				<div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+					<label for="username">Username</label>
+					<input type="text" name="username" id="username" class="form-control" ng-model="vm.user.username" required />
+					<span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+				</div>
+				<div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+					<label for="password">Password</label>
+					<input type="password" name="password" id="password" class="form-control" ng-model="vm.user.password" required />
+					<span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+				</div>
+				<div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+					<label for="confirmPassword">Confirm Password</label>
+					<input type="password" name="confirmPassword" id="confirmPassword" class="form-control" ng-model="vm.user.password" required />
+					<span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Passwords do not match</span>
+				</div>
+
+				<div class="form-actions">
+					<button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Register</button>
+					<a href="#/login" class="btn btn-link">Cancel</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+-->
+
+<div class="container app">
+	<text-angular
+		ng-model="vm.htmlcontent"
+		placeholder="What do you need right now? Start a conversation..."
+		ta-disabled="vm.disabled"
+		ta-toolbar="[]"
+	></text-angular>
+</div>
+		

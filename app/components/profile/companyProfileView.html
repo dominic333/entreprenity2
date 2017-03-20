@@ -1,0 +1,90 @@
+<div style="max-width: 1000px; margin: 0 auto;">
+	<div class="profile companyProfile">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 ">
+					<div class="profile-top">
+						<div class="coverPhoto">
+							<img ng-src="">
+						</div>
+						<div class="info">
+							<div class="profilePhoto">
+								<div>
+									<img class="img-circle" ng-src="{{vm.company.profilePhoto}}">
+								</div>
+							</div>
+							<h3>{{vm.company.name}}</h3>
+							<p>{{vm.company.location}}</p>
+							<br>
+							<div class="followers">
+								<a ng-href="#/companies/{{vm.company.companyUserName}}/followers"><span>{{vm.company.followers}}</span>Followers</a>
+							</div>
+							<div class="btn-group">
+								<a class="btn btn-default" ng-click="vm.follow_this_company(vm.company.companyUserName)" ng-hide="vm.company.followed">FOLLOW</a>
+								<a class="btn btn-primary" ng-click="vm.unFollow_this_company(vm.company.companyUserName)" ng-show="vm.company.followed">UNFOLLOW</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+					<div class="profile-sidenav">
+						<div class="about-me">
+							<h4>WHAT WE DO</h4>
+							<div class="content">
+								<p>{{vm.company.desc}}</p>
+								<ul>
+									<li ng-repeat="category in vm.company.categories"><a href="" class="tags-item">{{category}}</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="contact">
+							<h4>CONTACT</h4>
+							<div class="content">
+								<p><span>e:</span><a ng-href="mailto:{{vm.company.email}}">{{vm.company.email}}</a></p>
+								<p><span>w:</span><a ng-href="http://{{vm.company.website}}">{{vm.company.website}}</a></p>
+								<p><span>t:</span>{{vm.company.tel}}</p>
+								<p><span>f:</span>{{vm.company.mobile}}</p>
+								<p><span>m:</span>{{vm.company.fax}}</p>
+							</div>
+						</div>
+						<div class="team">
+							<h4>TEAM</h4>
+							<div class="content">
+								<ul>
+									<li ng-repeat="employee in vm.company.companyMembers | limitTo:6">
+										<a ng-href="#/members/{{employee.username}}">
+											<img class="img-circle" ng-src="{{employee.profilePhoto}}">
+											<p style="text-align: center;">{{employee.firstName + " " + employee.lastName}}</p>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="team">
+							<h4>Events</h4>
+							<div class="content">
+								<ul>
+									<li ng-repeat="event in vm.company.companyEvents">
+										<a ng-href="#/events/{{event.eventTagId}}">
+											{{event.eventName}}
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-8" infinite-scroll='triggerNextPage()'  infinite-scroll-distance='0'>
+					<news-feed poststype="4" istextareahidden="true" username="vm.companyUserName" triggernextpage="vm.isTriggerNextUserCompanyPosts" reloadnewsfeed="false"></news-feed>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

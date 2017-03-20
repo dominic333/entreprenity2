@@ -1,0 +1,22 @@
+<div class="my-qr-code-container">
+	<div class="my-qr-code">
+	   <p ng-hide="cameraRequested && !cameraIsOn">Your browser should ask for permission to use the camera.</p>
+	   <!--
+	   <div >
+    		<label for="audioSource">Audio source: </label><select id="audioSource"></select>
+  		</div>
+
+	  <div>
+	    <label for="videoSource">Video source: </label><select id="videoSource"></select>
+	  </div>
+	  -->
+	  
+		<div class="">
+			<bc-qr-reader active="cameraRequested" on-result="processURLfromQR" on-error="onError" camera-status="cameraIsOn" width="400px" height="300px"></bc-qr-reader>
+		</div>
+		<div>
+			<!--<p>Scan the code to join the community</p>-->
+			<img class="en-logo" ng-src="assets/img/entreprenity-logo.png" alt="">
+		</div>
+	</div>
+</div>

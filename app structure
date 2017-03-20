@@ -1,0 +1,14 @@
+app/
+-- shared/   		// reusable components like sidebar, navbar, articles, etc.
+-- components/   // component for a certain feature or page of the app, treated as a mini Angular app
+---- directory/
+------- directoryController.js
+------- directoryService.js
+------- directoryView.html
+----- app.js //includes, modules, config, run, routes(can be in a seperate file)
+assets/
+-- img/      // Images and icons for the app
+-- css/      // All styles and style related files (SCSS or LESS files)
+-- js/       // JavaScript files
+-- libs/     // Third-party libraries
+index.html

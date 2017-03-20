@@ -1,0 +1,372 @@
+@import "compass/css3/border-radius";
+
+$tabs-underline-color: $secondary-color;
+$tabs-bg-color: #ffffff;
+$tabs-text-color: $primary-text-color;
+
+#home {
+	margin-top: 0;
+	.container {
+		padding-top: 15px;
+	}
+	a {
+		text-decoration: none;
+		color:inherit;
+	}
+	h5 {
+		font-weight: 300;
+		font-size: 12px;
+		text-align: center;
+		text-decoration: underline;
+		margin-bottom: 5px;
+		color: $secondary-text-color;
+	}
+	
+	/*-- Tabs --*/
+	.nav-tabs {
+		position: relative;
+		width: 100%;
+		height: 36px;
+		border: 0px;
+		margin: 10px 0;
+		@media (max-width: 1000px) {
+			padding: 0px 20px;
+		}
+
+		li {
+			text-align: center;
+			height: 100%;
+			width: 33%;
+			&.active, {
+				border-bottom: 5px solid $tabs-underline-color;
+			}
+			a {
+				background-color: $tabs-bg-color;
+				border: 0px;
+				color: $tabs-text-color;
+				display: block;
+				width: 100%;
+				height: 100%;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				transition: color .28s ease;
+				&:hover {
+					border: 0px;
+					/*background-color: darken($tabs-bg-color, 10%);*/
+					color: lighten($tabs-text-color, 20%);
+				}
+				&:focus, &:active {
+					border: 0px;
+				}
+				will-change: left, right;
+				@include border-radius(0px 0px, 0px 0px);
+
+				i {
+					display: none;
+
+					@media (max-width: 600px) {
+						display: block;
+					}
+				}
+
+				span {
+					display: block;
+
+					@media (max-width: 600px) {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+
+	.button-fab {
+		display: none;
+		border:none;
+		font-size:1.5em;
+		color:white;
+		background-color: $secondary-color;
+		border-radius: 50%;
+		width: 64px;
+		height: 64px;
+		margin: auto;
+		-webkit-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		-moz-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		position: fixed;
+		right: 10px;
+		top: 150px;
+		z-index: 99;
+		i {
+			margin-left:13px;
+			margin-top: 11px;;
+		}
+
+		transition: all 1s ease;
+		-webkit-transition: all 1s ease;
+		-moz-transition: all 1s ease;
+		-ms-transition: all 1s ease;
+		@media (max-width: 479px) {
+			display: block;
+		}
+
+	}
+	.button-fab.slide {
+		right: 210px !important;
+	}
+
+
+	#page-content-wrapper {
+		overflow-y: scroll;
+	}
+
+	.card {
+		text-align: center;
+		border: 1px solid;
+		border-color: $primary-border-color;
+		margin-bottom: 15px;
+		background-color: #ffffff;
+	}
+	
+	#myProfile {
+		position: relative;
+		padding: 10px 15px;
+		img {
+			max-width: 100px;
+			width: 100%; 
+			height: auto;
+			margin-bottom: 5px;
+		}
+		p {color: $secondary-text-color;}
+		
+		a:hover {
+			opacity: 0.8;
+		}
+		a.button-toggle {
+			position: absolute;
+			top: 15px;
+			left: 15px;
+			color: #f29b13;
+		}
+		@media (min-width: 997px) {
+			a.button-toggle {
+				display: none;
+			}
+		}
+	}
+	
+	#sideNav {
+		li {
+			font-weight: 300;
+			border-bottom: 1px solid $primary-divider-color;
+			padding: 10px 15px;
+			&:last-child {border-bottom: 1px solid transparent;}
+			
+			a:hover {
+				color: $secondary-color !important;
+			}
+		}
+	}
+	
+	#topNav {
+		height: 150px;
+		text-align: center;
+		margin-left: 5px;
+		margin-bottom: 15px;
+		div {
+			background-color: #ffffff;	
+			width: 33%;
+			height: 150px;
+			float:left;
+			display: inline-block;
+			border: 1px solid $primary-divider-color;
+			padding: 15px;
+			
+			img{
+				width: 70px;
+				height: 70px;
+			}
+			
+			.btn {
+				padding: 6px 10px;	
+			}
+		}
+		@media (max-width: 767px) {
+			height: 130px;
+			div {
+				padding: 0;
+				height: 130px;
+			}
+			.btn {
+				padding: 5px;
+				font-size: 10px;
+			}
+		}
+		@media (max-width: 479px) {
+			height: 110px;
+			div {
+				height: 110px;
+			}
+			.btn {
+				padding: 2px;
+				font-size: 8px;
+			}
+		}
+	}
+
+	#newBusOpp {
+		text-align: left;
+		h4 {
+			text-align: center;
+			border-bottom: 1px solid $primary-divider-color;
+			padding: 10px 15px;
+		}
+		ul {
+			padding: 15px 15px 0 15px;
+			.post {
+				background-color: #ffffff;
+				margin: 0;
+				margin-bottom:	10px;
+				border-bottom: 1px solid $primary-divider-color;
+
+				.post-main {
+					background-color: #ffffff;
+					padding: 10px;
+					.post-header {
+						a {
+							padding-right: 10px;
+							display: block;
+						}
+						a:hover {
+							text-decoration: underline;
+						}
+						.author-name {
+							color: $primary-text-color;
+							font-size: 16px;
+						}
+					}
+					.post-content {
+						padding: 5px 10px;
+						&.image {
+							text-align: center;
+						}
+						ul{
+							padding: 0;
+							.tags-item {
+								margin: 2px;
+								margin-bottom: 10px;
+								padding: 0 5px;
+								display: inline-block;
+								float: left;
+								font-size: 14px;
+								height: 26px;
+								line-height: 25px;
+								color: #fff;
+								/*background: #428bca;*/
+								background: $secondary-color;
+								border: 1px solid darken($secondary-color, 5%);
+								border-radius: 4px;
+
+							}
+						}
+					}
+				}
+			}
+		}
+		.see-more {
+			text-align: center;
+			margin-bottom: 10px;
+			a {
+				color:inherit;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+	
+	#newMembers {
+		h4 {
+			border-bottom: 1px solid $primary-divider-color;
+			padding: 10px 15px;
+		}
+		ul{
+			padding: 15px;
+			img {
+				max-width: 100px;
+				width: 100%; 
+				height: auto;
+			}
+		}
+
+	}
+	
+	#latestEvents {
+		h4 {
+			border-bottom: 1px solid $primary-divider-color;
+			padding: 10px 15px;
+		}
+		ul{
+			padding: 15px;
+			img {
+				width: 100%; 
+				height: auto;
+			}
+		}
+	}
+	
+	#connectWithFacebook {
+		color: #ffffff !important;
+		a {text-align: center;}
+	}
+}
+
+@media (max-width: 977px) {
+	.container {
+		margin-left: 0;
+		margin-right: 0;
+		width: 100%;
+	}
+	h5 {
+		display: none;
+	}
+	#myProfile {
+		display: none;
+	}
+	#sideNav {
+		display: none;
+	}
+	#home .nav-tabs {
+		padding: 0 !important;
+	}
+	#newBusOpp {
+		display: none;
+	}
+	#latestEvents {
+		display: none;
+	}
+	#newMembers {
+		display: none;
+	}
+	#connectWithFacebook {
+		display: none;
+	}
+}
+
+/*
+@include mobile {
+	#topNav {
+		display: none;
+	}
+	#sideNav {
+		display: none;
+	}
+	.nav-tabs {
+		padding: 0;
+	}
+}
+
+@include tablet {
+
+}
+*/

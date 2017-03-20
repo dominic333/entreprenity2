@@ -1,0 +1,57 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header" style="padding-top: 10px; padding-bottom: 10px;width: 100%;">
+			<img ng-src="assets/img/entreprenity-logo.png" width="150px">
+			<button type="button" class="navbar-toggle navbar-right" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed" style="display:block;">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+	</div>
+</div>
+
+<div style="max-width: 1000px; margin: 0 auto;">
+	<div class="directory">
+		<uib-tabset active="active">
+			<uib-tab index="0" heading="Members">
+				<div class="col-md-3">
+					<div class="side-filters">
+						<label>SEARCH
+							<input type="text" class="form-control" placeholder="Search for member" ng-model="searchedMember">
+						</label>
+						<label>LOCATION 
+							<div>
+								<select ng-model="selectedCity">
+									<option value="">All Locations</option>
+									<option ng-repeat="location in vm.locations" value="{{location.location_desc}}">{{location.location_desc}}</option>
+								</select>
+							</div>
+						</label>	
+					</div>
+				</div>
+				<div class="col-md-9">
+					<ul class="directory-members" infinite-scroll='vm.members.nextPage()' infinite-scroll-disabled='vm.members.busy'  infinite-scroll-distance='1'>
+						<li ng-repeat="member in vm.members.items | filter:searchedMember | filter:selectedCity">
+							<a ng-href="/members/{{member.id}}">
+								<div>
+									<img class="img-circle" ng-src="{{member.avatar}}">
+									<h3>{{member.firstName + ' ' + member.lastName}}</h3>
+									<p>{{member.id}}</p>
+									<p>{{member.companyName}}</p>
+									<p>{{member.city}}</p>
+									<hr>
+									<button class="btn btn-default">FOLLOW</button>
+								</div>
+							</a>
+						</li>
+						<div ng-show='vm.members.busy'>Loading data...</div>
+					</ul>		
+				</div>
+			</uib-tab>
+
+
+		</uib-tabset>
+	</div>
+</div>

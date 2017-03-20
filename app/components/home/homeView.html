@@ -1,0 +1,224 @@
+<div id="home">
+
+    <div id="wrapper" ng-class="{'toggled': isActive}">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li><h3>COMMUNITY</h3></li>
+                <li><a ng-href="#/home">News Feed</a></li>
+                <li><a ng-href="#/mycompany">My Company</a></li>
+                <li><a ng-href="#/directory/events">Events</a></li>
+                <li><a ng-href="#/add-event">Add Events</a></li>
+                <li><a ng-href="#/directory/members">Directory</a></li>
+                <!--<li><a ng-href="#/directory">Benefits & Discounts</a></li>-->
+                <li><a ng-href="#/business-opportunities">Business Opportunities</a></li>
+                <br>
+                <li><h3>SERVICES</h3></li>
+                <li><a href="#/spaces">Book Meeting Room</a></li>
+                <!--<li><a href="#/spaces" >Book Workspace</a></li>-->
+                <li><a href="#/callanswering">Manage Calls</a></li>
+                <li><a href="http://voffice.com.ph/vworld/" target="_blank">vWorld</a></li>
+                <li><a href="#/honestyBar" >Honesty Bar</a></li>
+                <!--<li><a href="#/callanswering" >Manage Mails</a></li>-->
+                <!--<li><a ng-href="#/home">Facilities Support</a></li>-->
+                <!--<li><a ng-href="#/home">Contact Us</a></li>-->
+                <br>
+                <li><h3>CONNECT SOCIAL MEDIA ACCOUNTS</h3></li>
+                <div class="social-media">
+                    <a href="#/settings" class="btn btn-social-icon btn-facebook"><span
+                            class="fa fa-facebook"></span></a>
+                </div>
+
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div class="button-fab" ng-class="{'slide': isActive}">
+            <a class="button-toggle" ng-click="toggleMenu()"> <i class="fa fa-compass fa-2x" aria-hidden="true"></i></a>
+        </div>
+        <div id="page-content-wrapper">
+            <div class="container" infinite-scroll='triggerNextPage()'
+                 infinite-scroll-disabled='vm.isTriggerNextPageAll || vm.isTriggerNextPageFollowed || vm.isTriggerNextPageMy'
+                 infinite-scroll-distance='0'>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div id="myProfile" class="card">
+                            <a ng-href="#/myprofile">
+                                <img class="img-circle" ng-src="{{vm.avatar}}">
+                                <h3>{{vm.firstName + " " +vm.lastName}}</h3>
+                                <p>{{vm.position}}</p>
+                                <p>at {{vm.myOffice}}</p>
+                            </a>
+                        </div>
+                        <h5>COMMUNITY</h5>
+                        <div id="sideNav" class="card">
+                            <ul>
+                                <li><a ng-href="#/home">News Feed</a></li>
+                                <li><a ng-href="#/mycompany">My Company</a></li>
+                                <li><a ng-href="#/directory/events">Events</a></li>
+                                <li><a ng-href="#/add-event">Add Events</a></li>
+                                <li><a ng-href="#/directory/members">Directory</a></li>
+                                <!--<li><a ng-href="#/directory">Benefits & Discounts</a></li>-->
+                                <li><a ng-href="#/business-opportunities">Business Opportunities</a></li>
+                            </ul>
+                        </div>
+
+                        <h5>SERVICES</h5>
+                        <div id="sideNav" class="card">
+                            <ul>
+                                <li><a href="#/spaces">Book Meeting Room</a></li>
+                                <!--<li><a href="#/spaces" >Book Workspace</a></li>-->
+                                <li><a href="#/callanswering">Manage Calls</a></li>
+                                <li><a href="http://voffice.com.ph/vworld/" target="_blank">vWorld</a></li>
+                                <li><a href="#/honestyBar" >Honesty Bar</a></li>
+                                <!--<li><a href="#/callanswering" >Manage Mails</a></li>-->
+                                <!--<li><a ng-href="#/home">Facilities Support</a></li>-->
+                                <!--<li><a ng-href="#/home">Contact Us</a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="hidden-xs" id="topNav">
+                            <div>
+                                <img ng-src="assets/img/icon-recep.png">
+                                <span class="up-arrow"></span>
+                                <a ng-href="#/callanswering" class="btn btn-default">MY RECEPTIONIST</a>
+                            </div>
+                            <div>
+                                <img ng-src="assets/img/icon-meeting.png">
+                                <span class="up-arrow"></span>
+                                <a ng-href="#/spaces" class="btn btn-default">MEETING ROOM</a>
+                            </div>
+                            <div>
+                                <img ng-src="assets/img/icon-services.png">
+                                <span class="up-arrow"></span>
+                                <a ng-href="http://entreprenity.co/other-services.php" class="btn btn-default">OTHER
+                                    SERVICES</a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <uib-tabset active="vm.activeTab">
+                                <uib-tab index="0" heading="All Posts">
+                                    <news-feed poststype="1" istextareahidden="false" username="userName"
+                                               triggernextpage="vm.isTriggerNextPageAll"
+                                               reloadnewsfeed="vm.isReloadAll"></news-feed>
+                                </uib-tab>
+                                <uib-tab index="1" heading="Followed Posts">
+                                    <news-feed poststype="3" istextareahidden="false" username="userName"
+                                               triggernextpage="vm.isTriggerNextPageFollowed"
+                                               reloadnewsfeed="vm.isReloadFollowed"></news-feed>
+                                </uib-tab>
+                                <uib-tab index="2" heading="My Posts">
+                                    <news-feed poststype="7" istextareahidden="false" username="userName"
+                                               triggernextpage="vm.isTriggerNextPageMy"
+                                               reloadnewsfeed="vm.isReloadMy"></news-feed>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div id="connectWithFacebook" class="card" ng-hide="vm.FBConnected">
+                            <div class="selection">
+                                <a href="#/settings" class="btn btn-block btn-social btn-facebook">
+                                    <span class="fa fa-facebook"></span> Connect with Facebook
+                                </a>
+                            </div>
+                        </div>
+
+                        <div id="newBusOpp" class="card">
+                            <h4>BUSINESS OPPORTUNITIES</h4>
+                            <ul class="media-list">
+                                <li class="media post" ng-repeat="businessOpportunity in vm.businessOpportunities">
+                                    <div class="post-main">
+                                        <div class="media-body post-header">
+                                            <a href="#/members/{{businessOpportunity.post_author.userName}}"
+                                               class="pull-left">
+                                                <img ng-src="{{businessOpportunity.post_author.avatar}}" alt=""
+                                                     class="img-circle" width="60px">
+                                            </a>
+											<span class="text-muted pull-right">
+												<small class="text-muted"><span
+                                                        am-time-ago="businessOpportunity.created_at"></span></small>
+											</span>
+                                            <a href="#/members/{{businessOpportunity.post_author.userName}}"
+                                               class="author-name"><strong>{{businessOpportunity.post_author.firstName +
+                                                ' ' + businessOpportunity.post_author.lastName}}</strong></a>
+                                            <div class="author-company">{{businessOpportunity.post_author.position + ' /
+                                                ' + businessOpportunity.post_author.companyName}}
+                                            </div>
+                                            <small class="text-muted">Is looking for</small>
+
+                                        </div>
+                                        <div class="truncate" ng-bind-html="businessOpportunity.content"></div>
+                                        <div class="clearfix"></div>
+                                        <div class="post-content">
+                                            <ul>
+                                                <li ng-repeat="tag in businessOpportunity.postTags"><a href=""
+                                                                                                       class="tags-item">{{tag}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="see-more"><a ng-href="#/business-opportunities">See more...</a></div>
+
+                        </div>
+
+                        <div id="latestEvents" class="card">
+                            <h4>UPCOMING EVENTS</h4>
+                            <ul class="media-list">
+                                <li class="media post" ng-repeat="	latestEvent in vm.latestEvents">
+                                    <a ng-href="#/events/{{latestEvent.eventTagId}}">
+                                        <img ng-src="{{latestEvent.poster}}">
+                                        <p>{{latestEvent.name}}</p>
+                                        <p>{{latestEvent.date}}</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="see-more"><a ng-href="#/directory/events">See more...</a></div>
+                        </div>
+
+                        <div id="newMembers" class="card">
+                            <h4>TOP CONTRIBUTORS</h4>
+                            <ul class="media-list">
+                                <li class="media post" ng-repeat="topContributor in vm.topContributors">
+                                    <a ng-href="#/members/{{topContributor.userName}}">
+                                        <img class="img-circle" ng-src="{{topContributor.avatar}}">
+                                        <p>{{topContributor.firstName + ' ' + topContributor.lastName}}</p>
+                                        <p>{{topContributor.position + ' / ' + topContributor.company}}</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="newMembers" class="card">
+                            <h4>NEW MEMBERS</h4>
+                            <ul class="media-list">
+                                <li class="media post" ng-repeat="newMember in vm.newMembers">
+                                    <a ng-href="#/members/{{newMember.userName}}">
+                                        <img class="img-circle" ng-src="{{newMember.avatar}}">
+                                        <p>{{newMember.firstName + ' ' + newMember.lastName}}</p>
+                                        <p>{{newMember.position + ' / ' + newMember.company}}</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="see-more"><a ng-href="#/directory/members">See more...</a></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+</div>
+
+
+
+
+
+

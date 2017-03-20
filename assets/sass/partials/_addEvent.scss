@@ -1,0 +1,58 @@
+#addEvent {
+  .title{
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: $primary-border-color;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    h4 {
+      padding: 10px 20px !important;
+    }
+  }
+
+  h3 {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+
+
+  .rg-range-picker {
+    .well {
+      border: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+
+  }
+
+  .formContainer {
+    background-color: #ffffff;
+    padding: 10px 15px;
+    .form-section {
+      padding: 0 10px;
+    }
+    .form-actions {
+      text-align: right;
+    }
+  }
+
+  .uib-timepicker {
+    margin: 0 auto;
+    .btn {
+      padding: 6px 12px;
+      margin: 2px;
+    }
+    a {
+      color: #8c8c8c;
+    }
+  }
+
+  #source_map {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 20px;
+  }
+
+
+}

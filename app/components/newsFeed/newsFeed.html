@@ -1,0 +1,214 @@
+<div>
+	<div id="newsFeed">
+		<div class="location-filters clearfix" ng-init="showFilters=true">
+			<div class="col-md-12" style="text-align: right">
+				<a href="" ng-show="!showFilters" ng-click="showFilters=!showFilters"><i class="fa fa-ellipsis-h"></i></a>
+				<a href="" ng-show="showFilters" ng-click="showFilters=!showFilters"><i class="fa fa-ellipsis-h"></i></a>
+			</div>
+			<div ng-show="showFilters">
+				<div class="col-md-6">
+					<label>Select by Country
+						<div class="select-style">
+							<select ng-model="selectedCountry" ng-change="vm.fetchCenters(selectedCountry)">
+								<option value="" >All Countries</option>
+								<option ng-repeat="country in vm.countries" ng-selected="clientCountry == country.country_code" value="{{country.country_code}}">{{country.country}}</option>
+							</select>
+						</div>
+					</label>
+				</div>
+				<div class="col-md-6">
+					<label>Select by Center
+						<div class="select-style">
+							<select ng-model="selectedCenter"  ng-change="vm.fetchFeedsforCenter(selectedCenter)">
+								<option value="" selected >All Centers</option>
+								<option ng-repeat="center in vm.centers" value="{{center.id}}">{{center.location_desc}}</option>
+							</select>
+						</div>
+					</label>
+				</div>	
+			</div>
+
+		</div>
+		<div class="post-textarea" ng-class="{ 'has-error': vm.currentPost.content.$dirty && vm.currentPost.content.$error.required, 'hidden': vm.istextareahidden }">
+			<text-angular
+					ng-hide="vm.busoppPost"
+					ng-model="vm.currentPost.content"
+					placeholder="What do you need right now? Start a conversation..."
+					ta-disabled="vm.disabled"
+					ta-toolbar="[['insertLink','insertVideo']]"
+					class="post-wysiwyg-editor"
+					required
+			></text-angular>
+			<text-angular
+					ng-show="vm.busoppPost"
+					ng-model="vm.currentPost.content"
+					placeholder="Describe the Service you Seek here..."
+					ta-disabled="vm.disabled"
+					ta-toolbar="[['insertLink','insertVideo']]"
+					class="post-wysiwyg-editor"
+					required
+			></text-angular>
+			<!-- <textarea ng-hide="vm.busoppPost" class="form-control" placeholder="What do you need right now? Start a conversation..." rows="3" ng-model="vm.currentPost.content" required ></textarea> -->
+			<!-- <textarea ng-show="vm.busoppPost" class="form-control" placeholder="Describe the Service you Seek here..." rows="3" ng-model="vm.currentPost.content" required ></textarea> -->
+			<div ng-show="vm.isAnImagePost" style="margin: 0 auto; text-align: center; padding: 10px; background: #fff;">
+				<img class="" ng-src="{{vm.currentPost.image}}" style="max-width: 300px; width: 100%; height: auto;">
+			</div>
+			<tags-input class="bootstrap"
+						ng-model="vm.currentPost.categories"
+						placeholder="Add key words for service matching with other members e.g. marketing, SEO, legal service, etc."
+						replace-spaces-with-dashes="false"
+						ng-show="vm.busoppPost">
+				<auto-complete source="loadTags($query)"></auto-complete>
+			</tags-input>
+			<div class="button-container">
+				<a class="btn btn-primary btn-sm btn-post" ng-hide="vm.busoppPost" ng-click="vm.addPost(vm.currentPost.content,vm.currentPost.image)">Post</a>
+				<a class="btn btn-primary btn-sm btn-post" ng-show="vm.busoppPost" ng-click="vm.addBusoppPost(vm.currentPost,vm.currentPost.image)">Post</a>
+				<a class="btn btn-addImage" ng-click="vm.addImageToPost()">
+					<i class="fa fa-camera fa-lg"></i>
+				</a>
+				<a class="btn btn-addImage" ng-click="vm.addVideoPost()">
+				
+					<i class="fa fa-video-camera" aria-hidden="true"></i>				
+				
+				</a>
+			</div>
+		</div>
+		<div>
+			<ul class="media-list">
+				<li class="media post animate-repeat" ng-repeat="post in vm.posts">
+					<div class="post-main">
+						<div class="pull-right"  ng-if="vm.currentPost.post_author.id == post.post_author.id">
+							<span uib-dropdown on-toggle="toggled(open)">
+								<a href id="simple-dropdown" uib-dropdown-toggle>
+									<i class="fa fa-caret-down"></i>
+								</a>
+								<ul class="dropdown-menu" uib-dropdown-menu>
+									<li><a ng-click="vm.openPostToEdit($index)">Edit</a></li>
+									<!--<li><a ng-click="vm.editPostImage(post.post_id, post.image)">Edit Post Image</a></li>-->
+									<li><a ng-click="vm.deletePost(vm.posts,$index,post.post_id)">Delete</a></li>
+								</ul>
+							</span>
+						</div>
+						<div class="pull-right"  ng-if="vm.currentPost.post_author.id != post.post_author.id">
+							<span uib-dropdown on-toggle="toggled(open)">
+								<a href id="simple-dropdown" uib-dropdown-toggle>
+									<i class="fa fa-caret-down"></i>
+								</a>
+								<ul class="dropdown-menu" uib-dropdown-menu>
+									<li><a ng-click="vm.hideThisPost(vm.posts,$index,post.post_id)">Hide This Post</a></li>
+									<li><a ng-click="vm.hideAllPostsOfThisUser(vm.posts,$index,post.post_id)">Hide All From {{post.post_author.firstName + ' ' + post.post_author.lastName}}</a></li>
+								</ul>
+							</span>
+						</div>
+						<div class="media-body post-header">
+							<a href="#/members/{{post.post_author.userName}}" class="pull-left">
+								<img ng-src="{{post.post_author.avatar}}" alt="" class="img-circle" width="60px">
+							</a>
+							<a href="#/members/{{post.post_author.userName}}" class="author-name"><strong >{{post.post_author.firstName + ' ' + post.post_author.lastName}}</strong></a>
+							<div class="author-company">{{post.post_author.companyName}}</div>
+							<small class="text-muted"><span am-time-ago="post.created_at | UTCToNow"></span></small>,
+							<small class="text-muted show-in-mobile">{{post.post_author.location}}</small>
+						</div>
+						<div class="clearfix"></div>
+						<div ng-hide="$index == vm.indexOfEditedPost" class="post-content" ta-bind ng-model="post.content"  ></div>
+						<text-angular
+								ng-show="$index == vm.indexOfEditedPost"
+								 
+								ng-model="post.content"
+								ta-disabled="vm.disabled"
+								ta-toolbar="[]"
+								class="post-wysiwyg-editor"
+								rows="3"
+								required
+						></text-angular>
+						<tags-input class="bootstrap"
+									ng-model="post.postTags"
+									placeholder="Add key words for service matching with other members e.g. marketing, SEO, legal service, etc."
+									replace-spaces-with-dashes="false"
+									ng-show="$index == vm.indexOfEditedPost && vm.busoppPost">
+									<auto-complete source="loadTags($query)"></auto-complete>
+						</tags-input>
+						<div class="button-container" ng-show="$index == vm.indexOfEditedPost">
+							<a class="btn btn-primary btn-sm btn-post" ng-hide="vm.busoppPost" ng-click="vm.editPost(post)">Post</a>
+							<a class="btn btn-primary btn-sm btn-post" ng-show="vm.busoppPost" ng-click="vm.editPost(post)">Post</a>
+						</div>
+						<div  class="post-content image" ng-if="post.uploadType == 1" >
+							<img ng-src="{{post.image}}" style="max-width: 300px; width: 100%; height: auto;"/>
+						</div>
+						<div  class="post-content image" ng-if="post.uploadType == 2">
+						  <video width="480" height="320" controls>
+						    <source ng-src="{{post.image}}" type="video/mp4">
+						  </video> 
+						</div>
+						<div class="post-content category-tags" ng-if="post.bussOpp == 1">
+							<ul ng-show="vm.busoppPost && !vm.editState">
+								<li ng-repeat="category in post.postTags"><a href="" class="tags-item">{{category.text}}</a></li>
+							</ul>
+						</div>
+						<hr>
+						<div class="post-buttonGroup">
+							<a ng-click="vm.likePost(post)" ng-hide="post.isLiked">Like</a>	
+							<a ng-click="vm.unLikePost(post)" ng-show="post.isLiked">Liked</a>
+							<a ng-click="vm.focusCommentBox(post.post_id)">Comment</a>
+							<small class="text-muted hide-in-mobile pull-right">{{post.post_author.location}}</small>
+						</div>
+					</div>
+
+					<div class="comment">
+						<div class="post-likers">
+							<div class="post-likers-container" ng-mouseover="showLikers = true" ng-mouseleave="showLikers = false">
+								<div ng-show="post.likes_count !== 0">
+									<i class="fa fa-thumbs-up fa-lg"></i>
+									<small class="text-muted">
+										{{post.likes_count}} people liked this
+									</small>
+									<ul class="post-likers-list" ng-show="showLikers">
+										<li class="text-muted" ng-repeat="liker in post.likers"><a><small>{{liker.firstName + ' ' + liker.lastName}}</small></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>	
+						<hr>
+						<ul class="media-list">
+							<li class="media" ng-repeat="comment in post.comments">
+								<a href="#/members/{{comment.comment_author.userName}}" class="pull-left">
+									<img ng-src="{{comment.comment_author.avatar}}" alt="" class="img-circle" width="40px">
+								</a>
+								<div class="media-body comment-header">
+										<span class="text-muted pull-right">
+											<small class="text-muted">
+												<span am-time-ago="comment.created_at| UTCToNow"></span>
+												<span ng-click="vm.deleteComment(post.comments,$index,comment.commentId)" ng-if="vm.currentPost.post_author.id == comment.comment_author.id"><i class="fa fa-times"></i></span>
+											</small>
+										</span>
+										<a href="#/members/{{comment.comment_author.userName}}" ><strong>{{comment.comment_author.firstName + ' ' + comment.comment_author.lastName}}</strong></a>
+										<p><small class="text-muted">{{comment.comment_author.companyName}}</small></p>
+								</div>
+								<div class="post-buttonGroup" style="display: none;">
+									<a ng-click="vm.likeComment(comment.commentId)" ng-hide="comment.isLiked">Like</a>	
+									<a ng-click="vm.unLikeComment(comment.commentId)" ng-show="comment.isLiked">Liked</a>
+								</div>
+								<div class="clearfix"></div>
+								<div class="comment-content">{{comment.content}}</div>
+							</li>
+						</ul>
+
+						<div class="media comment-textarea">
+							<a href="#/members/{{vm.currentPost.post_author.userName}}" class="pull-left">
+								<img ng-src="{{vm.currentPost.post_author.avatar}}" alt="" class="img-circle" width="30px">
+							</a>
+							<div class="media-body">
+								<textarea id="{{post.post_id}}" class="form-control" placeholder="Type comment here..." rows="1" ng-model="post.comment.content"></textarea>
+								<a class="btn btn-primary btn-submit-comment" ng-click="vm.addComment(post,post.comment.content)">
+									<i class="fa fa-paper-plane"></i>
+								</a>	
+							</div>
+						</div>
+					</div>
+
+				</li>
+			</ul>
+		</div>
+
+	</div>
+</div>

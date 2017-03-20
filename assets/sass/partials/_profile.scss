@@ -1,0 +1,176 @@
+.profile {
+	.container {
+		max-width: 1000px;
+	}
+	input[type="text"] {
+		padding: 5px;
+		border: none;
+		border-bottom: dotted 1.5px #c9c9c9;
+		transition: border 0.3s;
+	}
+	input[type="text"]:focus,
+	input[type="text"].focus {
+		border-bottom: solid 1px #969696;
+	}
+	textarea {
+		width: 100%;
+		border: none;
+		border-bottom: dotted 1.5px  #c9c9c9;
+		transition: border 0.3s;
+		overflow: auto;
+		resize: none;
+	}
+	.profile-top {
+		padding: 0 !important;
+		border: 1px solid;
+		border-color: $primary-border-color;
+		margin: 15px 0px;
+		background-color: #ffffff;
+		.coverPhoto {
+			height: 150px;
+			background-color: lightseagreen;
+		}
+		.info {
+			position: relative;
+			padding: 15px;
+			padding-left: 200px;
+			
+			.profilePhoto {
+				position: absolute;
+				top: -50%;
+				left: 40px;
+				div {
+					position: relative;
+					img {
+						position: absolute;
+						left: 0px;
+						width: 150px;
+						z-index: 99;
+					}
+					.uploadPhoto {
+						position: absolute;
+						z-index: 100;
+						opacity: .8;
+						&:hover {
+							opacity: 1;
+						}
+						img {width: 50px;}
+					}
+				}
+
+			}
+			
+			.followers {
+				a {
+					text-decoration: none;
+					color:$primary-text-color; 
+					
+					span {
+						color: $secondary-color;
+						font-size: 20px;
+						font-weight: bold;
+						padding-right: 4px;
+					}
+				}
+				a:last-child {margin-left: 20px;}
+			}
+			
+			.btn-group {
+				position: absolute;
+				bottom: 15px;
+				right: 40px;
+
+				.btn {margin: 0px 10px;}
+			}
+		}
+	}
+	
+	.profile-sidenav {
+		border: 1px solid;
+		border-color: $primary-border-color;
+		background-color: #ffffff;
+		h4 {
+			padding: 10px 15px;
+			border-top: 1px solid $primary-divider-color;
+			border-bottom: 1px solid $primary-divider-color;
+		}
+		.about-me li {
+			display: inline-block;
+			padding-right: 5px;
+		}
+		
+		.content {
+			padding: 15px;
+			span {width: 20px; padding-right: 5px;}
+		}
+		
+		.team li {
+			display: inline-block;
+			margin-right: 5px;
+			img {max-width: 80px;}
+		}
+		
+		.skills li {
+			display: inline-block;
+			padding-right: 5px;
+		}
+		.interests li {
+			display: inline-block;
+			padding-right: 5px;
+		}
+		.tags-item {
+			margin: 2px;
+			padding: 0 5px;
+			display: inline-block;
+			float: left;
+			font-size: 14px;
+			height: 26px;
+			line-height: 25px;
+			color: #fff;
+			/*background: #428bca;*/
+			background: $secondary-color;
+			border: 1px solid darken($secondary-color, 5%);
+			border-radius: 4px;
+		}
+	}
+	
+	#newsFeed a {color:inherit;}
+}
+
+@media (max-width: 768px) {
+	.profile {
+		.profile-top {
+			.coverPhoto {
+
+			}
+			.info {
+				padding-left: 0;
+				padding-right: 0;
+				padding-top: 70px;
+				padding-bottom: 15px;
+				text-align: center;
+
+				.profilePhoto {
+					left: 0;
+					right: 0;
+					margin: 0 auto;
+					width: 150px;
+				}
+
+				.btn-group {
+					position: relative;
+					width: 100%;
+					bottom:0;
+					right:0;
+					padding-top: 10px;
+				}
+			}
+		}
+
+		.profile-sidenav {
+			margin-bottom: 15px;
+		}
+
+
+	}
+}

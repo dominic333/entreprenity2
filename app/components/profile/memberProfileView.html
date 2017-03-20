@@ -1,0 +1,83 @@
+<div style="max-width: 1000px; margin: 0 auto;">
+	<div class="profile memberProfile">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 ">
+					<div class="profile-top">
+						<div class="coverPhoto">
+							<img ng-src="">
+						</div>
+						<div class="info">
+							<div class="profilePhoto">
+								<div>
+									<img class="img-circle" ng-src="{{vm.member.avatar}}">
+								</div>
+							</div>
+							<h3>{{vm.member.firstName + ' ' + vm.member.lastName}}</h3>
+							<p>{{vm.member.position}}</p>
+							<br>
+							<div class="followers">
+								<a ng-href="#/members/{{vm.member.userName}}/followers"><span>{{vm.member.followers}}</span>Followers</a>
+								<a ng-href="#/members/{{vm.member.userName}}/following"><span>{{vm.member.following}}</span>Following</a>
+							</div>
+							<div class="btn-group" ng-if="vm.member.myProfile == 0" >
+								<a class="btn btn-default" ng-click="vm.follow_this_member(vm.member.userName)" ng-hide="vm.member.followed">FOLLOW</a>
+								<a class="btn btn-primary" ng-click="vm.unFollow_this_member(vm.member.userName)" ng-show="vm.member.followed">UNFOLLOW</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+					<div class="profile-sidenav">
+						<div class="about-me">
+							<h4>ABOUT ME</h4>
+							<div class="content">
+								<p>{{vm.member.aboutMe}}</p>
+							</div>
+						</div>
+						<div class="contact">
+							<h4>CONTACT</h4>
+							<div class="content">
+								<p><span>e:</span><a ng-href="mailto:{{vm.member.email}}">{{vm.member.email}}</a></p>
+								<p><span>w:</span><a ng-href="http://{{vm.member.website}}">{{vm.member.website}}</a></p>
+								<p><span>m:</span>{{vm.member.mobile}}</p>
+							</div>
+						</div>
+						<div class="work">
+							<h4>WORK/COMPANY</h4>
+							<div class="content">
+								<p class="uppercase">{{vm.member.company.companyName}}</p>
+								<p>{{vm.member.company.companyDesc}}</p>
+							</div>
+						</div>
+						<div class="skills">
+							<h4>SKILLS</h4>
+							<div class="content">
+								<ul>
+									<li ng-repeat="skill in vm.member.skills"><a href="" class="tags-item">{{skill}}</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="interests">
+							<h4>INTERESTS</h4>
+							<div class="content">
+								<ul>
+									<li ng-repeat="interest in vm.member.interests"><a href="" class="tags-item">{{interest}}</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-8" infinite-scroll='triggerNextPage()'  infinite-scroll-distance='0'>
+					<news-feed poststype="2" istextareahidden="true" username="vm.memberUserName" triggernextpage="vm.isTriggerNextUserProfilePosts" reloadnewsfeed="false"></news-feed>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

@@ -1,0 +1,41 @@
+<div style="max-width: 1000px; margin: 0 auto;">
+	<div class="profile companyProfile">
+		<div class="row">
+			<div class="col-md-12 ">
+				<div class="profile-top">
+					<div class="coverPhoto">
+					</div>	
+					<div class="info">
+						<div class="profilePhoto">
+							<div>
+								<img class="img-circle" ng-src="{{vm.company.profilePhoto}}">
+							</div>
+						</div>
+						<h3>{{vm.company.name}}</h3>
+						<p>{{vm.company.location}}</p>
+						<br>
+						<div class="followers">
+							<a ng-href="#/companies/{{vm.company.companyUserName}}/followers"><span>{{vm.company.followers}}</span>Followers</a>
+						</div>
+					</div>		
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="followers">
+					<li ng-repeat="follower in vm.company.followersObjects">
+						<a ng-href="#/members/{{follower.username}}">
+							<div>
+								<img class="img-circle" ng-src="{{follower.avatar}}">
+								<h3>{{follower.firstName + ' ' + follower.lastName}}</h3>
+								<p>{{follower.position ? follower.position : 'Member' }}</p>
+								<p>at {{follower.company.companyName ? follower.company.companyName : 'Not Specified'}}</p>
+							</div>
+						</a>
+					</li>
+				</ul>	
+			</div>
+		</div>
+	</div>
+</div>

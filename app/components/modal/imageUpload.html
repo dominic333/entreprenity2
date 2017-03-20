@@ -1,0 +1,28 @@
+<div class="modal-header">
+	<h3 class="modal-title">UPLOAD YOUR PHOTO</h3>
+</div>
+<div class="modal-body">
+	<div id="uploadImage">
+		<input type="file" id="fileInput" onchange="angular.element(this).scope().handleFileSelect(this)" style="display: none;"/>
+		<div class="image-container">
+			<img class="myCroppedImage" ng-show="showImage" ng-src="{{myCroppedImage}}"/>
+			<div ng-hide="showImage" class="image-placeholder">
+				<i class="fa fa-picture-o fa-2x"></i>
+				<br>
+				<div><a class="" ng-click="clickBrowseImage()">Browse an image</a></div>
+				<br>
+				<p>PNG, JPG & Bitmap</p>
+				<p>Max Size 5MB</p>
+				<br>
+				<uib-progressbar class="progress-striped active" max="100" value="progressValue"><span style="color:white; white-space:nowrap;"></span></uib-progressbar>
+			</div>
+		</div>
+		<div ng-show="showImage" class="cropArea">
+			<img-crop  image="myImage" result-image="myCroppedImage" result-image-size="200"></img-crop>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="ok()">SAVE</button>
+	<button class="btn btn-default" type="button" ng-click="cancel()">CANCEL</button>
+</div>

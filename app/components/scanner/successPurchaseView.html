@@ -1,0 +1,54 @@
+<style>
+    .currency {
+        font-size: 25px;
+        color: #388e3c;
+    }
+
+    .balance {
+        font-size: 17px;
+        color: #f27c14;
+    }
+</style>
+
+<div style="max-width: 600px; margin: 0 auto;">
+    <div id="notifications">
+        <div class="title">
+            <p class="text-center" style="padding: 10px">
+                <img src="assets/img/checklist.png">
+            </p>
+
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <td colspan="2" class="text-center"><strong>Thank you! Your transaction is completed
+                        Successfully!</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">Your Order Id : <strong class="balance">{{purchase}}
+                       </strong></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">Item Price : <strong class="currency">
+                        {{itemCurrency}} {{itemPrice}} </strong></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">You Paid : <strong class="currency">
+                        {{userCurrency}} {{price}} </strong></td>
+                </tr>
+                
+                <tr>
+                    <td colspan="2" class="text-center">Your Balance is : <strong class="balance">{{userCurrency}} {{remainingCredits}}
+                        </strong></td>
+                </tr>
+                
+                <tr>
+                    <td colspan="2"><a class="btn btn-default btn-block"
+                                       ng-click="vm.cancelThisItemPurchase()">Back</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,36 @@
+#uploadImage {
+  margin: 0 auto;
+  .image-container{
+    width: 200px;
+    height: 200px;
+    border: 1px dashed $primary-text-color;
+    border-radius: 3px;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    margin: 10px auto;
+
+    i {margin-top: 20px;}
+
+    .myCroppedImage {
+      position: absolute;
+      top:0px;
+      right:0px;
+    }
+
+    .image-placeholder {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      top:0px;
+      right:0px;
+      padding: 10px;
+    }
+  }
+
+  .cropArea {
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+  }
+}

@@ -1,0 +1,18 @@
+<div class="my-qr-code-container">
+	<div class="my-qr-code">
+		<div ng-if="vm.vofStaffStatus != 0">
+			<h4>My Entreprenity ID: {{ vm.vofClientId }}</h4>
+		</div>
+		<div class="qr-container">
+			<img src='{{vm.qrCode}}' border='0'/>
+			<div class="corner-border tl"></div>
+			<div class="corner-border tr"></div>
+			<div class="corner-border bl"></div>
+			<div class="corner-border br"></div>
+		</div>
+		<div>
+			<!--<p>Scan the code to join the community</p>-->
+			<img class="en-logo" ng-src="assets/img/entreprenity-logo.png" alt="">
+		</div>
+	</div>
+</div>

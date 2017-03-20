@@ -1,0 +1,225 @@
+@import "compass/css3/border-radius";
+
+$tabs-underline-color: $secondary-color;
+$tabs-bg-color: #ffffff;
+$tabs-text-color: $primary-text-color;
+
+
+.directory {
+	a {
+		text-decoration: none;
+		color:inherit;
+	}
+	/*-- Tabs --*/
+	.nav-tabs {
+		position: relative;
+		width: 100%;
+		height: 36px;
+		border: 0px;
+		margin: 10px 0;
+		padding-left: 270px;
+		padding-right: 32px;
+		
+		@media (max-width: 1000px) {
+			padding: 0 15px;
+	
+		}
+
+		li {
+			text-align: center;
+			height: 100%;
+			width: 33.33%;
+			&.active, {
+				border-bottom: 5px solid $tabs-underline-color;
+			}
+			a {
+				background-color: $tabs-bg-color;
+				border: 0px;
+				color: $tabs-text-color;
+				display: block;
+				width: 100%;
+				height: 100%;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				transition: color .28s ease;
+				&:hover {
+					border: 0px;
+					/*background-color: darken($tabs-bg-color, 10%);*/
+					color: lighten($tabs-text-color, 20%);
+				}
+				&:focus, &:active {
+					border: 0px;
+				}
+				will-change: left, right;
+				@include border-radius(0px 0px, 0px 0px);
+
+				i {
+					display: none;
+
+					@media (max-width: 600px) {
+						display: block;
+					}
+				}
+
+				span {
+					display: block;
+
+					@media (max-width: 600px) {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+	
+	select {max-width: 100%;}
+	
+	/*-- Members Directory --*/
+	.directory-members {
+		li {
+			text-align: center;
+			border: 1px solid;
+			border-color: $primary-border-color;
+			margin: 2px;
+			width: 32%;
+			float: left;
+			padding: 10px 15px;
+			background-color: #ffffff;	
+			
+			img{
+				width: 100px;
+				height: auto;
+			}
+			
+			p {color: $secondary-text-color;}
+			
+			.button-group {
+				position: relative;
+				height: 40px;
+				margin: 0px 20px;
+				.btn {
+					position: absolute;
+					left: 0;
+					right: 0;
+					margin: auto;
+				}
+			}
+		}
+		@media (min-width: 480px) and (max-width: 769px) {
+			li {
+				width: 49%;
+			}
+		}
+		@media (max-width: 479px){
+			li {
+				width: 100%;
+				margin: 0;
+				margin-top: 10px;
+			}
+		}
+	}
+	
+	/*-- Companies Directory --*/
+	.directory-companies {
+		li {
+			text-align: center;
+			border: 1px solid;
+			border-color: $primary-border-color;
+			margin: 2px;
+			width: 49%;
+			float: left;
+			padding: 10px 15px;
+			background-color: #ffffff;	
+			
+			img{
+				width: 100px;
+				height: auto;
+			}
+			
+			p {color: $secondary-text-color;}
+			
+			.button-group {
+				position: relative;
+				height: 40px;
+				margin: 0px 20px;
+				.btn {
+					position: absolute;
+					left: 0;
+					right: 0;
+					margin: auto;
+				}
+			}
+		}
+		@media (min-width: 480px) and (max-width: 767px) {
+			li {
+				width: 49%;
+			}
+		}
+		@media (max-width: 479px){
+			li {
+				width: 100%;
+			}
+		}
+	}
+	
+	/*-- Events Directory --*/
+	.directory-events {
+		li {
+			text-align: center;
+			border: 1px solid;
+			border-color: $primary-border-color;
+			margin: 2px;
+			width: 49%;
+			float: left;
+			background-color: #ffffff;	
+			
+			img {
+				width: 100%;
+				height: auto;
+			}
+			
+			
+			a {
+				width: 100%;
+			}
+			
+			p {color: $secondary-text-color;}
+			
+			.button-group {
+				position: relative;
+				height: 40px;
+				margin: 0px 20px;
+				margin-bottom: 15px;
+				.btn {
+					position: absolute;
+					left: 0;
+					right: 0;
+					margin: auto;
+				}
+			}
+		}
+		@media (min-width: 480px) and (max-width: 767px) {
+			li {
+				width: 49%;
+			}
+		}
+		@media (max-width: 479px){
+			li {
+				width: 100%;
+			}
+		}
+	}
+	
+	/*-- Side Filters and Search --*/
+	.side-filters {
+		border: 1px solid;
+		border-color: $primary-border-color;
+		padding: 15px;
+		background-color: #ffffff;
+	}
+	@media (max-width: 769px) {
+		.side-filters label {
+			display: block;
+		}
+	}
+}

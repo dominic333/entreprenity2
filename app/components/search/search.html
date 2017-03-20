@@ -1,0 +1,59 @@
+<div>
+	<div id="search">
+		<div class="search-box">
+			<input type="text" class="form-control" placeholder="Search..." ng-model="vm.searchQuery" ng-keyup="vm.searchOnKeyup()">
+			<i class="fa fa-search fa-lg"></i>
+			<i class="fa fa-spinner fa-pulse fa-spin fa-lg fa-fw" ng-show="vm.isBusy"></i>
+		</div>
+		<div class="search-results" ng-show="vm.showResultsDiv">
+			<ul class="search-users" ng-show="vm.searchResults.users.length">
+				<h4>Users</h4>
+				<li class="media" ng-repeat="user in vm.searchResults.users">
+					<a href="#/members/{{user.username}}" class="pull-left" ng-click="vm.searchQuery='';vm.showResultsDiv=false;">
+						<img src="{{user.avatar}}" alt="" class="img-circle" width="40px">
+					</a>
+					<div class="media-body comment-header">
+						<a href="#/members/{{user.username}}" ng-click="vm.searchQuery='';vm.showResultsDiv=false;"><strong>{{user.firstname + ' ' + user.lastname}}</strong></a>
+						<p><small class="text-muted">{{user.companyName}}</small></p>
+					</div>
+				</li>
+			</ul>
+			<ul class="search-companies" ng-show="vm.searchResults.companies.length">
+				<h4>Companies</h4>
+				<li class="media" ng-repeat="company in vm.searchResults.companies">
+					<a href="#/companies/{{company.compUName}}" class="pull-left" ng-click="vm.searchQuery='';vm.showResultsDiv=false;">
+						<img ng-src="{{company.avatar}}" alt="" class="img-circle" width="40px">
+					</a>
+					<div class="media-body comment-header">
+						<a href="#/companies/{{company.compUName}}" ng-click="vm.searchQuery='';vm.showResultsDiv=false;"><strong>{{company.compName}}</strong></a>
+						<p><small class="text-muted">{{company.location}}</small></p>
+					</div>
+				</li>
+			</ul>
+			<ul class="search-events" ng-show="vm.searchResults.events.length">
+				<h4>Events</h4>
+				<li class="media" ng-repeat="event in vm.searchResults.events">
+					<a href="#/events/{{event.eventTagId}}" class="pull-left" ng-click="vm.searchQuery='';vm.showResultsDiv=false;">
+						<img ng-src="{{event.poster}}" width="40px">
+					</a>
+					<div class="media-body comment-header">
+						<a href="#/events/{{event.eventTagId}}" ng-click="vm.searchQuery='';vm.showResultsDiv=false;"><strong>{{event.eventName}}</strong></a>
+						<p><small class="text-muted">{{event.eventDate}}</small>, <small class="text-muted">{{event.location}}</small></p>
+					</div>
+				</li>
+			</ul>
+			<ul class="search-busOpp" ng-show="vm.searchResults.bussOpp.length">
+				<h4>Business Opportunities</h4>
+				<li class="media" ng-repeat="opportunity in vm.searchResults.bussOpp">
+					<a href="#/members/{{opportunity.user.eventTagId}}" class="pull-left" ng-click="vm.searchQuery='';vm.showResultsDiv=false;">
+						<img ng-src="{{opportunity.user.avatar}}" width="40px">
+					</a>
+					<div class="media-body comment-header">
+						<a href="#/members/{{opportunity.user.userName}}" ng-click="vm.searchQuery='';vm.showResultsDiv=false;"><strong>{{opportunity.user.firstName + ' ' + opportunity.user.lastName}}</strong></a>
+						<div class="post-content" ng-bind-html="vm.convertToHTML(opportunity.content)"></div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

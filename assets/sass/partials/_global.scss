@@ -1,0 +1,40 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
+
+body {
+	padding-top: 70px;
+	font-family: 'Lato', sans-serif;
+	margin-bottom: 20px;
+	background-color: $primary-bg-color;
+	overflow-y: scroll;
+}
+
+p, h1, h2, h3, h4, h5 {
+	margin: 0;
+}
+
+/*-- reset a, ul and li --*/	
+ul {
+	list-style: none;
+}
+ul, li {
+	margin: 0;
+	padding: 0;
+}
+a {
+	cursor: pointer;
+}
+
+.uppercase {text-transform: uppercase;}
+
+.truncate {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.main {
+	@media (max-width: 768px) {
+		margin-top: 64px;
+	}
+}

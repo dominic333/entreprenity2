@@ -1,0 +1,115 @@
+<div style="max-width: 1000px; margin: 0 auto;">
+	<div class="profile memberProfile">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 ">
+					<div class="profile-top">
+						<form name="myProfileForm" novalidate>
+							<div class="coverPhoto">
+								<img ng-src="">
+							</div>
+							<div class="info">
+								<div class="profilePhoto">
+									<div>
+										<img class="img-circle" ng-src="{{vm.company.profilePhoto}}">
+										<img class="img-circle" ng-src="{{vm.company.profilePhoto}}">
+										<a class="uploadPhoto" ng-click="vm.open()" ng-show="vm.editState">
+											<img class="img-circle" src="assets/img/icon-edit.png">
+										</a>
+									</div>
+								</div>
+								<h3 ng-hide="vm.editState">{{vm.company.companyName}}</h3>
+								<div>
+									<input type="text" name="companyName" ng-model="vm.company.companyName" ng-show="vm.editState">
+								</div>
+								<p>{{vm.company.location}}</p>
+								<br>
+								<div class="followers">
+									<a ng-href="#/companies/{{vm.company.companyUserName}}/followers"><span>{{vm.company.followers}}</span>Followers</a>
+								</div>
+								<div class="btn-group" ng-if="vm.company.role == 1">
+									<a class="btn btn-default ng-hide" ng-hide="vm.editState" ng-click="vm.editState = true">EDIT PROFILE</a>
+									<a class="btn btn-default" ng-show="vm.editState" ng-click="vm.updateData(vm.company)">SAVE PROFILE</a>
+									<a class="btn btn-default" ng-show="vm.editState" ng-click="vm.reloadData()">CANCEL</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="profile-sidenav">
+						<div class="about-me">
+							<h4>WHAT WE DO</h4>
+							<div class="content">
+								<p ng-hide="vm.editState">{{vm.company.companyDesc}}</p>
+								<textarea type="text" name="desc" ng-model="vm.company.companyDesc" ng-show="vm.editState"></textarea>
+								<ul ng-hide="vm.editState">
+									<li ng-repeat="category in vm.company.categories"><a href="" class="tags-item">{{category.text}}</a></li>
+								</ul>
+								<tags-input class="bootstrap"
+											ng-model="vm.company.categories"
+											placeholder="Add a category"
+											replace-spaces-with-dashes="false"
+											ng-show="vm.editState">
+								</tags-input>
+							</div>
+						</div>
+						<div class="contact">
+							<h4>CONTACT</h4>
+							<div class="content">
+
+
+								<div ng-hide="vm.editState">
+									<p><span>e:</span><a ng-href="mailto:{{vm.company.email}}">{{vm.company.email}}</a></p>
+									<p><span>w:</span><a ng-href="http://{{vm.company.website}}">{{vm.company.website}}</a></p>
+									<p><span>t:</span>{{vm.company.tel}}</p>
+									<p><span>m:</span>{{vm.company.mobile}}</p>
+									<p><span>f:</span>{{vm.company.fax}}</p>
+								</div>
+								<div ng-show="vm.editState">
+									<p><span>e: </span><input type="text" name="email" ng-model="vm.company.email"></p>
+									<p><span>w:</span><input type="text" name="website" ng-model="vm.company.website"></p>
+									<p><span>t:</span><input type="text" name="tel" ng-model="vm.company.tel"></p>
+									<p><span>m:</span><input type="text" name="mobile" ng-model="vm.company.mobile"></p>
+									<p><span>f:</span><input type="text" name="fax" ng-model="vm.company.fax"></p>
+								</div>
+							</div>
+						</div>
+						<div class="team">
+							<h4>TEAM</h4>
+							<div class="content">
+								<ul>
+									<li ng-repeat="employee in vm.company.companyMembers | limitTo:6">
+										<a ng-href="#/members/{{employee.username}}">
+											<img class="img-circle" ng-src="{{employee.profilePhoto}}">
+											<p style="text-align: center;">{{employee.firstName + " " + employee.lastName}}</p>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="team">
+							<h4>Events</h4>
+							<div class="content">
+								<ul>
+									<li ng-repeat="event in vm.company.companyEvents">
+										<a ng-href="#/events/{{event.eventTagId}}">
+											{{event.eventName}}
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8" infinite-scroll='triggerNextPage()'  infinite-scroll-distance='0'>
+					<news-feed poststype="6" username="vm.companyUserName" triggernextpage="vm.isTriggerNextmyCompanyPosts" reloadnewsfeed="vm.isReload"></news-feed>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

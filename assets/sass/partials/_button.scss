@@ -1,0 +1,57 @@
+@import "compass/css3/border-radius";
+
+//Button Variables
+$secondary-color: $secondary-color; //orange
+
+.btn {
+	padding: 6px 32px;
+	@include border-radius(0px 0px, 0px 0px);
+	font-size: 14px;
+}
+// Button Default Style
+.btn-default {
+	border-color: $secondary-color !important;
+	color: $secondary-color !important;
+	background-color: transparent;
+	
+	&:hover {
+		color: #fff !important;
+		background-color: $secondary-color;
+		transition: background 100ms ease-in-out;
+	}
+}
+
+// Button Default Style
+.btn-primary {
+	border-color: $secondary-color !important;
+	background-color: $secondary-color;
+	color: #fff !important;
+	border-width: 1px;
+	&:hover {
+		color: $secondary-color !important;
+		background-color: transparent !important;
+		
+		transition: background 100ms ease-in-out;
+	}
+}
+
+.uib-daypicker{
+	.btn {
+		padding: 5px 10px !important;
+	}
+	.btn-default {
+		color: #333 !important;
+		background-color: #fff !important;
+		border-color: #ccc !important;
+	}
+	.full button span {
+		background-color: limegreen;
+		border-radius: 32px;
+		color: black;
+	}
+	.partially button span {
+		background-color: orange;
+		border-radius: 32px;
+		color: black;
+	}
+}

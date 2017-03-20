@@ -1,0 +1,31 @@
+<div style="max-width: 600px; margin: 0 auto;">
+	<div id="notifications">
+		<div class="title">
+			<h4>Notifications</h4>
+		</div>
+
+		<ul class="media-list">
+		   <li class="media" ng-repeat="notification in vm.notifications" ng-class="{'isRead': notification.isRead == '1'}">
+			
+				<div class="media-left">
+					<a href="#">
+						<img ng-src="{{notification.notif_author.avatar}}" alt="" class="img-circle" width="60px">
+					</a>
+				</div>
+				<div class="media-body">
+					<a ng-href="#/members/{{notification.notif_author.userName}}">
+						{{notification.notif_author.firstName}} {{notification.notif_author.lastName}}
+					</a>
+					<span class="animate-switch-container" ng-switch on="notification.notif_type">
+						<span class="animate-switch" ng-switch-when="attend">is attending your <a ng-href="#/events/{{notification.event_tag}}">event</a></span>
+						<span class="animate-switch" ng-switch-when="company">is following your company</span>
+						<span class="animate-switch" ng-switch-when="follow">is following you</span>
+						<span class="animate-switch" ng-switch-when="comment">commented on your <a ng-href="#/posts/{{notification.post_id}}">post</a></span>
+						<span class="animate-switch" ng-switch-default>liked your <a ng-href="#/posts/{{notification.post_id}}">post</a></span>
+					</span>
+					<p><small class="text-muted"><span am-time-ago="notification.created_at | UTCToNow"></span></small></p>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

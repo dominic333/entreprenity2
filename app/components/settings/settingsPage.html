@@ -1,0 +1,134 @@
+<div style="max-width: 1000px; margin: 0 auto;">
+	<div id="settings">
+		<div class="title">
+			<h4>Entreprenity: Preferences and Settings</h4>
+		</div>
+		<ul>
+			<li>
+				<div class="setting-header">
+					<div class="info">Connect other networks</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="setting-content">
+					<div class="info pull-left">
+						Facebook
+					</div>
+
+					<div ng-if="vm.FBConnect == 'notconnected'" class="selection pull-right">
+						<a ng-click="FBConnect()" class="btn btn-block btn-social btn-facebook">
+							<span class="fa fa-facebook"></span> Connect to Facebook
+						</a>
+					</div>
+
+					<div  ng-if="vm.FBConnect == 'connected'" class="selection pull-right">
+						<a ng-click="FBUnlink()" class="btn btn-block btn-social btn-facebook">
+							<span class="fa fa-facebook"></span> Unlink Facebook
+						</a>
+					</div>
+				</div>
+
+			</li>		
+	
+	      <!--
+			<li>
+				<div class="setting-header">
+					<div class="info">Change QR Code</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="setting-content">
+					<div class="info pull-left">
+						Last Updated: <small class="text-muted"><span am-time-ago="vm.lastUpdated | UTCToNow"></span></small>
+					</div>
+
+					<div  class="selection pull-right">
+						<a ng-click="changeQRCode()" class="btn btn-block ">
+							Click Here
+						</a>
+					</div>
+				</div>
+
+			</li>	
+			-->	
+		
+		
+			<li>
+				<div class="setting-header">
+					<div class="info">Language Settings</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="setting-content">
+					<div class="info pull-left">
+						Select your preferred language
+					</div>
+					<div class="selection pull-right">
+						<select ng-options="option.text for option in vm.settings.languages track by option.id" ng-model="vm.settings.selectedLanguage"></select>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="setting-header">
+					<div class="info">Timezone Settings</div>
+				</div>
+				<div class="setting-content">
+					<div class="info">
+						Select your preferred timezone
+					</div>
+					<div class="selection">
+						<select ng-options="option.text for option in vm.settings.timezones track by option.id" ng-model="vm.settings.selectedTimezone"></select>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="setting-header">
+					<div class="info">Notification Settings</div>
+					<div class="desc">Email</div>	
+				</div>
+				
+				<div class="setting-content">
+					<div class="info">New Followers</div>
+					<div class="selection">	
+						<input type="checkbox" ng-model="vm.settings.followers">
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="setting-content">
+					<div class="info">New Comments</div>
+					<div class="selection">
+						<input type="checkbox" ng-model="vm.settings.comments">
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="setting-content">
+					<div class="info">New Likes</div>
+					<div class="selection">
+						<input type="checkbox" ng-model="vm.settings.likes">
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="setting-content">
+					<div class="info">New Mentions</div>
+					<div class="selection">
+						<input type="checkbox" ng-model="vm.settings.mentions">
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="setting-header">
+					<div class="info">Notification: Business Opportunities</div>
+					<div class="desc">Email</div>	
+				</div>
+				
+				<div class="setting-content">
+					<div class="info">Entreprenity Members in need of the service(s) you offer. <br> Member posts matched to the services listed on your Company Profile. </div>
+					<div class="selection">	
+						<input type="checkbox" ng-model="vm.settings.businessOpportunities">
+					</div>
+				</div>
+			</li>
+			<div class="button-container">
+				<a class="btn btn-default center" ng-click="vm.submitSettings()">SAVE SETTINGS</a>
+			</div>	
+		</ul>
+
+	</div>
+</div>

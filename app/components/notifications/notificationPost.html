@@ -1,0 +1,85 @@
+<div style="max-width: 600px; margin: 10px auto;">
+	<div id="notificationPost">
+		<div class="row">
+			<div class="col-md-12 ">
+				<div id="newsFeed">
+					<ul class="media-list">
+						<li class="media post" >
+							<div class="post-main">
+								<div class="media-body post-header">
+									<a href="#/members/{{vm.npost.post_author.userName}}" class="pull-left">
+										<img ng-src="{{vm.npost.post_author.avatar}}" alt="" class="img-circle" width="60px">
+									</a>
+									<a href="#/members/{{vm.npost.post_author.userName}}" class="author-name"><strong >{{vm.npost.post_author.firstName + ' ' + vm.npost.post_author.lastName}}</strong></a>
+									<div class="author-company">{{vm.npost.post_author.companyName}}</div>
+									<small class="text-muted"><span am-time-ago="vm.npost.created_at"></span></small>,
+									<small class="text-muted">{{vm.npost.post_author.location}}</small>
+								</div>
+								<div class="clearfix"></div>
+								<div class="post-content" ng-bind-html="vm.npost.content"></div>
+								<div  class="post-content image"><img ng-src="{{vm.npost.image}}" style="max-width: 300px; width: 100%; height: auto;"/></div>
+								<div class="post-content category-tags" ng-if="vm.npost.bussOpp == 1">
+									<ul>
+										<li ng-repeat="category in vm.npost.postTags"><a href="" class="tags-item">{{category}}</a></li>
+									</ul>
+								</div>
+								<hr>
+								<div class="post-buttonGroup">
+									<a ng-click="vm.likePost(vm.npost)" ng-hide="vm.npost.isLiked">Like</a>	
+									<a ng-click="vm.unLikePost(vm.npost)" ng-show="vm.npost.isLiked">Liked</a>
+									<a ng-click="vm.focusCommentBox()">Comment</a>
+								</div>
+							</div>
+		
+							<div class="comment">
+								<div class="post-likers">
+									<div class="post-likers-container" ng-mouseover="showLikers = true" ng-mouseleave="showLikers = false">
+										<div ng-show="vm.npost.likes_count !== 0">
+											<i class="fa fa-thumbs-up fa-lg"></i>
+											<small class="text-muted">
+												{{vm.npost.likes_count}} people liked this
+											</small>
+											<ul class="post-likers-list" ng-show="showLikers">
+												<li class="text-muted" ng-repeat="liker in vm.npost.likers"><a><small>{{liker.firstName + ' ' + liker.lastName}}</small></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>	
+								<hr>
+								<ul class="media-list">
+									<li class="media" ng-repeat="comment in vm.npost.comments">
+										<a href="#/members/{{comment.comment_author.userName}}" class="pull-left">
+											<img ng-src="{{comment.comment_author.avatar}}" alt="" class="img-circle" width="40px">
+										</a>
+										<div class="media-body comment-header">
+												<span class="text-muted pull-right">
+													<small class="text-muted"><span am-time-ago="comment.created_at | UTCToNow"></span></small>
+												</span>
+												<a href="#/members/{{comment.comment_author.userName}}"><strong>{{comment.comment_author.firstName + ' ' + comment.comment_author.lastName}}</strong></a>
+												<p><small class="text-muted">{{comment.comment_author.companyName}}</small></p>
+										</div>
+										<div class="clearfix"></div>
+										<div class="comment-content">{{comment.content}}</div>
+									</li>
+								</ul>
+		
+								<div class="media comment-textarea">
+									<a href="#/members/{{vm.currentPost.post_author.userName}}" class="pull-left">
+										<img ng-src="{{vm.currentPost.post_author.avatar}}" alt="" class="img-circle" width="30px">
+									</a>
+									<div class="media-body">
+										<textarea id="{{vm.npost.post_id}}" class="form-control" placeholder="Type comment here..." rows="1" ng-model="vm.currentComment.content"></textarea>
+										<a class="btn btn-primary btn-submit-comment" ng-click="vm.addComment(vm.npost,vm.currentComment.content)">
+											<i class="fa fa-paper-plane"></i>
+										</a>	
+									</div>
+								</div>
+							</div>
+		
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

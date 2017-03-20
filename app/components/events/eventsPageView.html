@@ -1,0 +1,78 @@
+<div style="max-width: 1000px; margin: 0 auto;">
+	<div class="eventsPage">
+
+		<div class="row">
+			<div class="col-md-12 ">
+				<div class="profile-top">
+					<div class="coverPhoto">
+					</div>	
+					<div class="info">
+						<h3>{{vm.event.name}}</h3>
+						<p>{{vm.event.date}}</p>
+						<p>{{vm.event.startTime}} to {{vm.event.endTime}}</p>
+						<p>{{vm.event.location}}</p>
+						<div class="btn-group" ng-hide="vm.event_over" >
+							<a class="btn btn-default" ng-click="vm.joinEvent(vm.event.id)" ng-hide="vm.event.joining"   >JOIN</a>
+							<a class="btn btn-primary" ng-click="vm.unJoinEvent(vm.event.id)" ng-show="vm.event.joining"  >NOT JOINING ANYMORE</a>
+							<a class="btn btn-default hidden">SHARE EVENT</a>
+						</div>
+					</div>		
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="profile-sidenav">
+					<div class="about">
+						<h4>ABOUT THE EVENT</h4>
+						<div class="content">
+							<p>{{vm.event.about}}</p>
+						</div>
+					</div>
+					<div class="about">
+						<h4>ADDRESS</h4>
+						<div class="content">
+							<p>{{vm.event.address}}</p>
+						</div>
+					</div>
+					<div class="contact">
+						<h4>MAP</h4>
+						<div class="content">
+							<ui-gmap-google-map 
+						    center='map.center' 
+						    zoom='map.zoom' aria-label="Google map">
+						    
+						    <ui-gmap-marker
+						      coords="vm.event.map.center" options="marker.options" events="marker.events" idkey="marker.id">
+						      <ui-gmap-window>
+						        <div>{{marker.window.title}}</div>
+						      </ui-gmap-window>
+						    </ui-gmap-marker>
+						    
+						  </ui-gmap-google-map>	
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-8">
+				<div class="attendees">
+					<h4>ATTENDEES</h4>
+					<div class="content">
+						<ul>
+							<li ng-repeat="attendee in vm.event.attendees">
+								<a ng-href="#/members/{{attendee.userName}}">
+									<img class="img-circle" ng-src="{{attendee.avatar}}">
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

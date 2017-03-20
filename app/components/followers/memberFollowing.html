@@ -1,0 +1,43 @@
+<div style="max-width: 1000px; margin: 0 auto;">
+	<div class="profile memberProfile">
+		<div class="row">
+			<div class="col-md-12 ">
+				<div class="profile-top">
+					<div class="coverPhoto">
+						<img ng-src="assets/img/members/">
+					</div>	
+					<div class="info">
+						<div class="profilePhoto">
+							<div>
+								<img class="img-circle" ng-src="{{vm.member.avatar}}">
+							</div>
+						</div>
+						<h3>{{vm.member.firstName + ' ' + vm.member.lastName}}</h3>
+						<p>{{vm.member.position ? vm.member.position : 'Member'}}</p>
+						<br>
+						<div class="followers">
+							<a ng-href="#/members/{{vm.member.userName}}/followers"><span>{{vm.member.followers}}</span>Followers</a>
+							<a ng-href="#/members/{{vm.member.userName}}/following"><span>{{vm.member.following}}</span>Following</a>
+						</div>
+					</div>		
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="followers">
+					<li ng-repeat="following in vm.member.followingObjects">
+						<a ng-href="#/members/{{following.username}}">
+							<div>
+								<img class="img-circle" ng-src="{{following.avatar}}">
+								<h3>{{following.firstName + ' ' + following.lastName}}</h3>
+								<p>{{following.position ? following.position : 'Member'}}</p>
+								<p>at {{following.company.companyName ? following.company.companyName : 'Not Specified' }}</p>
+							</div>
+						</a>
+					</li>
+				</ul>		
+			</div>
+		</div>
+	</div>
+</div>

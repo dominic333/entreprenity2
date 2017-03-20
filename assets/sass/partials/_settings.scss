@@ -1,0 +1,56 @@
+#settings {
+	margin: 0 auto;
+	max-width: 600px;
+
+	.title{
+		background-color: #ffffff;
+		border: 1px solid;
+		border-color: $primary-border-color;
+		margin-top: 20px;
+		h4 {
+			padding: 10px 10px;
+		}
+	}
+
+	ul {
+		background-color: #ffffff;
+		border: 1px solid;
+		border-color: $primary-border-color;
+		margin-top: 10px;
+		li {
+			border-bottom: 1px solid $primary-divider-color;
+			margin: 0;
+			padding: 10px 10px;
+			
+			.setting-header {
+				position: relative;
+				border-bottom: 1px solid $primary-divider-color;	
+				padding: 10px;
+				font-size: 16px;
+				font-weight: bold;
+				.desc {
+					position: absolute;
+					right: 10px;
+					top: 10px;
+				}
+			}
+			
+			.setting-content {
+				height: 40px;
+				.info {
+					float: left;
+					padding: 10px 15px;
+				}
+				.selection {
+					float: right;
+					padding: 10px 15px;
+				}
+			}
+		}
+		
+		.button-container {
+			padding: 15px;
+			text-align: center;
+		}
+	}
+}

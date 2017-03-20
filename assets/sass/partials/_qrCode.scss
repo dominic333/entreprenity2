@@ -1,0 +1,136 @@
+.my-qr-code-container{
+  border-top: 1px solid grey;
+  background-color: #222;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+.my-qr-code {
+  margin: 0 auto;
+  max-width: 600px;
+  text-align: center;
+  color: #ffffff;
+  h4 {
+    padding: 20px;
+  }
+  p {
+    margin-bottom: 20px;
+  }
+  .qr-container {
+    position: relative;
+    width: 190px;
+    margin: 20px auto;
+    img {
+      padding: 20px;
+    }
+    .corner-border {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border: 2px solid $secondary-color;
+      &.tl {
+        top: 0;
+        left: 0;
+        border-bottom-width: 0;
+        border-right-width: 0;
+      }
+      &.tr {
+        top: 0;
+        right: 0;
+        border-bottom-width: 0;
+        border-left-width: 0;
+      }
+      &.bl {
+        bottom: 0;
+        left: 0;
+        border-top-width: 0;
+        border-right-width: 0;
+      }
+      &.br {
+        bottom: 0;
+        right: 0;
+        border-top-width: 0;
+        border-left-width: 0;
+      }
+    }
+  }
+  .en-logo {
+    width: 100px;
+  }
+}
+
+.scanner-qr-code-container{
+  border-top: 1px solid grey;
+  background-color: #222;
+  width: 100%;
+  padding: 15px;
+}
+.scanner-qr-code {
+  margin: 0 auto;
+  max-width: 700px;
+  text-align: center;
+  color: #ffffff;
+  h4 {
+    padding: 20px;
+  }
+  p {
+    margin-bottom: 20px;
+  }
+  .qr-container {
+    position: relative;
+    width: 280px;
+    margin: 50px auto;
+    img {
+      padding: 20px;
+    }
+    .corner-border {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border: 2px solid $secondary-color;
+      &.tl {
+        top: 0;
+        left: 0;
+        border-bottom-width: 0;
+        border-right-width: 0;
+      }
+      &.tr {
+        top: 0;
+        right: 0;
+        border-bottom-width: 0;
+        border-left-width: 0;
+      }
+      &.bl {
+        bottom: 0;
+        left: 0;
+        border-top-width: 0;
+        border-right-width: 0;
+      }
+      &.br {
+        bottom: 0;
+        right: 0;
+        border-top-width: 0;
+        border-left-width: 0;
+      }
+    }
+  }
+  .en-logo {
+    width: 100px;
+  }
+  #qr-canvas {
+    display:none;
+  }
+  #outdiv {
+    width:240px;
+    height:240px;
+    margin: 15px;
+  }
+  #v{
+    width:240px;
+    height:240px;
+  }
+  .qr-table {
+    margin-top: 20px;
+    height: 400px;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,103 @@
+<div style="max-width: 1000px; margin: 0 auto;">
+	<div class="profile memberProfile">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 ">
+					<div class="profile-top">
+						<form name="myProfileForm" novalidate>
+							<div class="coverPhoto">
+								<img ng-src="">
+							</div>
+							<div class="info">
+								<div class="profilePhoto">
+									<div>
+										<img class="img-circle" ng-src="{{vm.member.avatar}}">
+										<img class="img-circle" ng-src="{{vm.member.avatar}}">
+										<a class="uploadPhoto" ng-click="vm.open()" ng-show="vm.editState">
+											<img class="img-circle" src="assets/img/icon-edit.png">
+										</a>
+									</div>
+								</div>
+								<h3 ng-hide="vm.editState">{{vm.member.firstName + ' ' + vm.member.lastName}}</h3>
+								<div>
+									<input type="text" name="firstName" ng-model="vm.member.firstName" ng-show="vm.editState" placeholder="First name here">
+									<input type="text" name="lastName" ng-model="vm.member.lastName" ng-show="vm.editState" placeholder="Last name here">
+								</div>
+								<p ng-hide="vm.editState">{{vm.member.position}}</p>
+								<input type="text" name="position" ng-model="vm.member.position" ng-show="vm.editState" placeholder="Add designation here">
+								<br>
+								<div class="followers">
+									<a ng-href="#/members/{{vm.member.userName}}/followers"><span>{{vm.member.followers}}</span>Followers</a>
+									<a ng-href="#/members/{{vm.member.userName}}/following"><span>{{vm.member.following}}</span>Following</a>
+								</div>
+								<div class="btn-group">
+									<a class="btn btn-default" ng-hide="vm.editState" ng-click="vm.editState = true">EDIT PROFILE</a>
+									<a class="btn btn-default" ng-show="vm.editState" ng-click="vm.updateData(vm.member)">SAVE PROFILE</a>
+									<a class="btn btn-default" ng-show="vm.editState" ng-click="vm.reloadData()">CANCEL</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="profile-sidenav">
+						<div class="about-me">
+							<h4>ABOUT ME</h4>
+							<div class="content">
+								<p ng-hide="vm.editState">{{vm.member.aboutMe}}</p>
+								<textarea type="text" name="position" ng-model="vm.member.aboutMe" rows="3" ng-show="vm.editState" placeholder="Tell us a little about yourself" ></textarea>
+							</div>
+						</div>
+						<div class="contact">
+							<h4>CONTACT</h4>
+							<div class="content">
+								<div ng-hide="vm.editState">
+									<p><span>w:</span><a ng-href="http://{{vm.member.website}}">{{vm.member.website}}</a></p>
+									<p><span>e:</span><a ng-href="mailto:{{vm.member.email}}">{{vm.member.email}}</a></p>
+									<p><span>m:</span>{{vm.member.mobile}}</p>
+								</div>
+								<div ng-show="vm.editState">
+									<p><span>w:</span><input type="text" name="website" ng-model="vm.member.website" placeholder="Your website address"></p>
+									<p><span>e: </span><input type="text" name="email" ng-model="vm.member.email" placeholder="Your email Id"></p>
+									<p><span>m:</span><input type="text" pattern="\d*" title="numbers only" name="mobile" ng-model="vm.member.mobile" placeholder="Your mobile number"></p>
+								</div>
+							</div>
+						</div>
+						<div class="work">
+							<h4>WORK/COMPANY</h4>
+							<div class="content">
+								<p class="uppercase">{{vm.member.company.companyName}}</p>
+								<p>{{vm.member.company.companyDesc}}</p>
+							</div>
+						</div>
+						<div class="skills">
+							<h4>SKILLS</h4>
+							<div class="content">
+								<ul ng-hide="vm.editState">
+									<li ng-repeat="skill in vm.member.skills"><a href="" class="tags-item">{{skill.text}}</a></li>
+								</ul>
+								<tags-input class="bootstrap" ng-model="vm.member.skills" placeholder="Add a skill: eg. PHP" replace-spaces-with-dashes="false" ng-show="vm.editState"></tags-input>
+							</div>
+						</div>
+						<div class="interests">
+							<h4>INTERESTS</h4>
+							<div class="content">
+								<ul ng-hide="vm.editState">
+									<li ng-repeat="interest in vm.member.interests"><a href="" class="tags-item">{{interest.text}}</a></li>
+								</ul>
+								<tags-input class="bootstrap" ng-model="vm.member.interests" placeholder="Add an interest: eg. Photography" replace-spaces-with-dashes="false" ng-show="vm.editState"></tags-input>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8" infinite-scroll='triggerNextPage()'  infinite-scroll-distance='0'>
+					<news-feed poststype="7" username="vm.memberUserName" triggernextpage="vm.isTriggerNextmyProfilePosts" reloadnewsfeed="vm.isReload"></news-feed>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

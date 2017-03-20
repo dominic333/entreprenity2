@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h3 class="modal-title">Post Your Photo</h3>
+</div>
+<div class="modal-body">
+    <div id="uploadImage" style="text-align: center;">
+        <input type="file" id="fileInput" accept="image/*"  onchange="angular.element(this).scope().handleFileSelect(this)" style="display: none;"/>
+        <img class="" ng-show="showImage" ng-src="{{myImage}}" style="max-width: 300px; width: 100%; height: auto;"  />
+        <div class="image-container" ng-hide="showImage">
+            <div class="image-placeholder">
+                <i class="fa fa-picture-o fa-2x"></i>
+                <br>
+                <div><a class="" ng-click="clickBrowseImage()">Browse an image</a></div>
+                <br>
+                <p>PNG, JPG & Bitmap</p>
+                <p>Max Size 5MB</p>
+                <br>
+                <uib-progressbar class="progress-striped active" max="100" value="progressValue"><span style="color:white; white-space:nowrap;"></span></uib-progressbar>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="okPost()">SAVE</button>
+    <button class="btn btn-default" type="button" ng-click="cancel()">CANCEL</button>
+</div>

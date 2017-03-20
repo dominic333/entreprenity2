@@ -1,0 +1,27 @@
+#notifications {
+	.title{
+		background-color: #ffffff;
+		border: 1px solid;
+		border-color: $primary-border-color;
+		margin-top: 20px;
+		h4 {
+			padding: 10px 15px;
+		}
+	}
+	
+	ul {
+		background-color: #ffffff;
+		border: 1px solid;
+		border-color: $primary-border-color;
+		margin-top: 10px;
+		li {
+			border-bottom: 1px solid $primary-divider-color;
+			margin: 0;
+			padding: 10px 15px;
+			background-color: $secondary-bg-color;
+			&.isRead {
+				background-color: #ffffff;
+			}
+		}
+	}
+}

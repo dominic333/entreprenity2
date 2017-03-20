@@ -1,0 +1,11 @@
+User with EN ID 2and voffice ID 10002 redirected to EN on 2016-10-10 07:52:15 from 209.133.208.99 using Desktop through browser Mozilla Firefox ,OS: Linux
+User with EN ID 2and voffice ID 10002 redirected to EN on 2016-10-10 07:53:38 from 209.133.208.99 using Desktop through browser Mozilla Firefox ,OS: Linux
+User with EN ID 924and voffice ID 42958 redirected to EN on 2016-10-10 07:56:40 from 112.198.68.16 using Desktop through browser Safari ,OS: Mac
+User with EN ID 924and voffice ID 42958 redirected to EN on 2016-10-10 07:56:54 from 112.198.68.16 using Desktop through browser Safari ,OS: Mac
+User with EN ID 166and voffice ID 41104 redirected to EN on 2016-10-10 07:58:40 from 49.149.65.178 using Desktop through browser Safari ,OS: Mac
+User with EN ID 166and voffice ID 41104 redirected to EN on 2016-10-10 08:02:40 from 49.149.65.178 using Desktop through browser Safari ,OS: Mac
+User with EN ID 924and voffice ID 42958 redirected to EN on 2016-10-10 08:06:33 from 112.198.68.16 using Desktop through browser Safari ,OS: Mac
+User with EN ID 924and voffice ID 42958 redirected to EN on 2016-10-10 08:07:53 from 112.198.68.16 using Desktop through browser Safari ,OS: Mac
+User with EN ID 924and voffice ID 42958 redirected to EN on 2016-10-10 08:08:35 from 112.198.68.16 using Desktop through browser Google Chrome ,OS: Mac
+User with EN ID 924and voffice ID 42958 redirected to EN on 2016-10-10 08:09:03 from 112.198.68.16 using Desktop through browser Google Chrome ,OS: Mac
+User with EN ID 924and voffice ID 42958 redirected to EN on 2016-10-10 08:09:10 from 112.198.68.16 using Desktop through browser Google Chrome ,OS: Mac

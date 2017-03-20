@@ -1,0 +1,92 @@
+<div id="addEvent" style="max-width: 600px; margin: 10px auto;">
+    <div class="title">
+        <h4>ADD EVENT</h4>
+    </div>
+
+    <div class="formContainer">
+        <form name="addEventForm" ng-submit="vm.addEvent(addEventForm.$valid)" novalidate>
+            <h3>EVENT DETAILS</h3>
+            <div class="form-section">
+                <div class="form-group" ng-class="{ 'has-error': addEventForm.name.$dirty && addEventForm.name.$error.required }">
+                    <input type="text" name="name" id="name" class="form-control" ng-model="vm.name" placeholder="Add a short, clear name" required />
+                    <span ng-show="addEventForm.name.$dirty && addEventForm.name.$error.required" class="help-block">{{getError(addEventForm.name.$error, 'Event Name')}}</span>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error': addEventForm.eventCategory.$dirty && addEventForm.eventCategory.$error.required }">
+                    <div class="select-style">
+                        <select ng-model="vm.eventCategory">
+                            <option value="">Select an event category</option>
+                            <option ng-repeat="category in vm.categories" value="{{category.id}}">{{category.category}}</option>
+                        </select>
+                    </div>
+                    <span ng-show="addEventForm.eventCategory.$dirty && addEventForm.eventCategory.$error.required" class="help-block">{{getError(addEventForm.eventCategory.$error, 'Category')}}</span>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error': addEventForm.eventDate.$dirty && addEventForm.eventDate.$error.required }">
+                    <div>
+                        <p class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup="{{dateDisplayFormat}}" ng-model="vm.eventDate" is-open="popup1.opened"  minDate="minDate" maxDate="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" placeholder="Your Event Date"/>
+                        <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+                        </span>
+                        </p>
+                    </div>
+                    <div class="clearfix">
+                        <br>
+                       <!-- <div rg-range-picker="timeRangePicker" on-time-change="whenTimeChange" labels="myDatetimeLabels" ></div> -->
+                    </div>
+                    <div class="col-sm-6" style="text-align: center">
+                        <label>Start Time</label>
+                        <uib-timepicker ng-model="vm.eventStartTime" ng-change="changed()" hour-step="1" minute-step="1" show-meridian="false" show-seconds="false" second-step="30" ></uib-timepicker>
+                    </div>
+                    <div class="col-sm-6" style="text-align: center">
+                        <label>End Time</label>
+                        <uib-timepicker ng-model="vm.eventEndTime" ng-change="changed()" hour-step="1" minute-step="1" show-meridian="false" show-seconds="false" second-step="30"></uib-timepicker>
+                    </div>
+                    <span ng-show="addEventForm.eventDate.$dirty && addEventForm.eventDate.$error.required" class="help-block">{{getError(addEventForm.eventDate.$error, 'Event Date')}}</span>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error': addEventForm.description.$dirty && addEventForm.description.$error.required }">
+                    <textarea type="text" name="description" id="description" class="form-control" ng-model="vm.description" placeholder="Tell people more about the event" required ></textarea>
+                    <span ng-show="addEventForm.description.$dirty && addEventForm.description.$error.required" class="help-block">{{getError(addEventForm.description.$error, 'Description')}}</span>
+                </div>
+            </div>
+
+            <hr>
+
+            <h3>EVENT LOCATION</h3>
+            <div class="form-section">
+                <div class="form-group" ng-class="{ 'has-error': addEventForm.source_point.$dirty && addEventForm.source_point.$error.required }" >
+                    <input type="text" id="source_point" name="source_point" ng-model="vm.source_point" class="form-control" placeholder="Enter your event address here">
+                    <span ng-show="addEventForm.source_point.$dirty && addEventForm.source_point.$error.required" class="help-block">{{getError(addEventForm.source_point.$error, 'Location')}}</span>
+                    <p id="pickup_location"></p>
+                    <input  type="hidden" id="src_lat" name="src_lat" ng-model="vm.src_lat" placeholder="latitude">
+                    <input  type="hidden" id="src_long" name="src_long" ng-model="vm.src_long" placeholder="longitude">
+                </div>
+                <div id="source_map"></div>
+
+                <div class="form-group " ng-class="{ 'has-error': addEventForm.eventCity.$dirty && addEventForm.eventCity.$error.required }">
+                    <label>City</label>
+                    <input type="text" name="eventCity" id="eventCity" class="form-control" ng-model="vm.eventCity" placeholder="City" required />
+                </div>
+                
+                <div>
+					  <div>Select an image file: <input type="file" id="fileInput" /></div>
+					  <div class="cropArea" style="background: #E4E4E4;overflow: hidden;width:500px;height:350px;">
+					    <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+					    <!--<img ng-src="{{myImage}}" alt="" height="100" width="100">-->
+					  </div>
+					  <div>Cropped Image:</div>
+					  <div><img ng-src="{{myCroppedImage}}" /></div>
+					  <textarea class="hidden" id="event_poster_ars">{{myCroppedImage}}</textarea>
+					 </div>
+
+                <div class="form-group form-actions">
+                    <button type="submit" ng-disabled="addEventForm.$invalid || vm.dataLoading" ng-class="{ 'disabled': addEventForm.$invalid || vm.dataLoading }" class="btn btn-primary">Submit & Next</button>
+                </div>
+            </div>
+
+            <hr>
+        </form>
+    </div>
+</div>

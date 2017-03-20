@@ -1,0 +1,41 @@
+/*** Colors ***/
+$primary-color: #202020 !default; /*black*/
+$secondary-color: #f29b13 !default; /*orange*/
+$success-color:  green !default; /*green*/
+$error-color:  red !default; /*red*/
+$link-color: #1795aa !default; /*blue*/
+
+$primary-text-color:   #202020; /*black*/
+$secondary-text-color: #717171; /*darkgray*/
+
+$primary-bg-color:   #E9EBEE; 
+$secondary-bg-color: #F6F7F9;
+$tertiary-bg-color: #F6F7FB;
+
+/*** Borders & Dividers **/	
+$primary-border-color:	#e5e6e9 #dfe0e4 #d0d1d5; 
+$primary-divider-color:	#E5E5E5; 
+$secondary-divider-color:	#E1E2E3;
+
+/*** Media Queries ***/
+$mobile-width: 480px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+@mixin mobile {
+  @media (max-width: #{$tablet-width - 1px}){
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}

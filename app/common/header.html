@@ -1,0 +1,83 @@
+<nav class="navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container" style="padding-top:10px;padding-bottom:10px;position: relative;">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-init="navCollapsed = true"
+                    ng-click="navCollapsed = !navCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="logo-mobile" href="#/home"><img ng-src="assets/img/entreprenity-logo.png" width="150px"></a>
+        </div>
+        <!-- <a class="btn button-search-icon" href="#/home"><i class="fa fa-search fa-lg"></i></a> -->
+        <a class="btn button-home" href="#/home">Home</a>
+        <a class="btn button-notif" href="#/notifications" ng-click="vm.readNotifications()"><span
+                class="badge pull-right" style="margin-top: 3px; background-color: #fa3e3e;"
+                ng-if="numOfNotifications > 0">{{numOfNotifications}}</span><i class="fa fa-bell fa-lg"></i></a>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 2px;">
+                <li class="dropdown" ng-class="{ open : dd1 }" ng-init="dd1 = false" ng-click="dd1 = !dd1">
+                    <a class="dropdown-toggle hide-in-mobile" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false"><i class="fa fa-bars fa-lg"></i></a>
+                    <ul class="dropdown-menu hide-in-mobile">
+                        <li><a href="#/myqrcode">My ID</a></li>
+                        <li><a href="#/honestyBar" >Honesty Bar</a></li>
+                        <li><a href="#/myprofile">My Profile</a></li>
+                        <li><a href="#/mycompany">Company Profile</a></li>
+                        <!--<li><a href="#/business-opportunities">Business Opportunities</a></li>-->
+                        <!--<li><a href="#/home">Finance</a></li>-->
+                        <!--<li><a href="#/home">Refer a Friend</a></li>-->
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#/notifications" ng-click="readNotifications()"><span class="badge pull-right"
+                                                                                           ng-if="numOfNotifications > 0">{{numOfNotifications}}</span>Notifications
+                        </a></li>
+                        <li><a href="#/resetpassword">Reset Password</a></li>
+                        <li><a href="#/settings">Settings</a></li>
+                        <li><a href="#/logout">Logout</a></li>
+                    </ul>
+                <li><a class="show-in-mobile" href="#/home" ng-click="navCollapsed = !navCollapsed">Home</a></li>
+                <li><a class="show-in-mobile" href="#/myqrcode" ng-click="navCollapsed = !navCollapsed">My ID</a></li>
+                <li><a class="show-in-mobile" href="#/honestyBar" ng-click="navCollapsed = !navCollapsed">Honesty Bar</a></li>
+                <li><a class="show-in-mobile" href="#/myprofile" ng-click="navCollapsed = !navCollapsed">My Profile</a>
+                </li>
+                <li><a class="show-in-mobile" href="#/mycompany" ng-click="navCollapsed = !navCollapsed">Company
+                    Profile</a></li>
+                <li><a class="show-in-mobile" href="#/notifications"
+                       ng-click="readNotifications();navCollapsed = !navCollapsed"><span class="badge pull-right"
+                                                                                         ng-if="numOfNotifications > 0">{{numOfNotifications}}</span>Notifications
+                </a></li>
+                <li><a class="show-in-mobile" href="#/resetpassword" ng-click="navCollapsed = !navCollapsed">Reset
+                    Password</a></li>
+                <li><a class="show-in-mobile" href="#/settings" ng-click="navCollapsed = !navCollapsed">Settings</a>
+                </li>
+                <li><a class="show-in-mobile" href="#/logout" ng-click="navCollapsed = !navCollapsed">Logout</a></li>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div>
+</nav>
+
+<div class="hidden-sm hidden-md hidden-lg text-center">
+    <div class="col-xs-4 well">
+        <a ng-href="#/callanswering">
+            <img ng-src="assets/img/icon-recep.png" width="30px">
+            <span class="up-arrow"></span>
+        </a>
+    </div>
+    <div class="col-xs-4 well">
+        <a ng-href="#/spaces">
+            <img ng-src="assets/img/icon-meeting.png" width="30px">
+            <span class="up-arrow"></span>
+        </a>
+    </div>
+    <div class="col-xs-4 well">
+        <a ng-href="http://entreprenity.co/other-services.php">
+            <img ng-src="assets/img/icon-services.png" width="30px">
+            <span class="up-arrow"></span>
+        </a>
+    </div>
+</div>

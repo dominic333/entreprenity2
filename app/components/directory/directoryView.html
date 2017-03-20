@@ -1,0 +1,130 @@
+<div style="max-width: 1000px; margin: 0 auto;">
+	<div class="directory">
+		<uib-tabset active="vm.activeTab">
+			<uib-tab index="0" heading="Members">
+				<div class="col-md-3">
+					<div class="side-filters">
+						<label>SEARCH
+							<input type="text" class="form-control" placeholder="Search for member" ng-model="searchedMember">
+						</label>
+						<br>
+						<label>LOCATION
+							<div class="select-style">
+								<select ng-model="selectedCity">
+									<option value="">All Locations</option>
+									<option ng-repeat="location in vm.locations" value="{{location.location_desc}}">{{location.location_desc}}</option>
+								</select>
+							</div>
+						</label>	
+					</div>
+				</div>
+				<div class="col-md-9">
+					<ul class="directory-members" infinite-scroll='vm.members.nextPage()' infinite-scroll-disabled='vm.activeTab != 0 || vm.members.busy'  infinite-scroll-distance='0.8' style="overflow-y: auto;">
+						<li class="item" ng-repeat="member in vm.members.items | filter:searchedMember | filter:selectedCity">
+							<a ng-href="#/members/{{member.userName}}">
+								<div>
+									<img class="img-circle" ng-src="{{member.avatar}}">
+									<h4 class="truncate">{{member.firstName + ' ' + member.lastName}}</h4>
+									<p class="truncate">{{member.position ? member.position : 'Member'}}</p>
+									<p class="truncate">at {{member.companyName ? member.companyName : 'Not Specified'}}</p>
+									<p class="truncate"><i class="fa fa-map-marker"></i> {{member.city ? member.city : 'Not Specified'}}</p>
+									<hr>
+								</div>
+							</a>
+							<div class="button-group ">
+								<a class="btn btn-default" ng-click="vm.follow_member(member.id)" ng-hide="vm.members.items[{{$index}}].followed">FOLLOW</a>
+								<a class="btn btn-primary" ng-click="vm.unFollow_member(member.id)" ng-show="vm.members.items[{{$index}}].followed">UNFOLLOW</a>
+							</div>
+						</li>
+						<div ng-show='vm.members.busy'>Loading data...</div>
+					</ul>
+				</div>
+			</uib-tab>
+			<uib-tab index="1" heading="Companies">
+				<div class="col-md-3">
+					<div class="side-filters">
+						<label>SEARCH
+							<input type="text" class="form-control" placeholder="Search for company" ng-model="searchedCompany">
+						</label>
+						<label>LOCATION  
+							<div class="select-style">
+								<select ng-model="selectedCity2">
+									<option value="">All Locations</option>
+									<option ng-repeat="location in vm.locations" value="{{location.location_desc}}">{{location.location_desc}}</option>
+								</select>
+							</div>
+						</label>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<ul class="directory-companies" infinite-scroll='vm.companies.nextPage()' infinite-scroll-disabled='vm.activeTab != 1 || vm.companies.busy'  infinite-scroll-distance='0' style="overflow-y: auto;">
+						<li ng-repeat="company in vm.companies.items | filter:searchedCompany | filter:selectedCity2">
+							<a ng-href="#/companies/{{company.userName}}">
+								<div>
+									<div class="top-part">
+										<img ng-src="{{company.avatar}}">
+									</div>
+									<h4 class="truncate">{{company.companyName ? company.companyName : 'Not Mentioned'}}</h4>
+									<p class="truncate"><i class="fa fa-map-marker"></i> {{company.city ? company.city : 'Not Mentioned'}}</p>		
+									<p class="truncate"><small>{{company.description ? company.description : 'No Details Provided'}}</small></p>
+									<hr>
+								</div>
+							</a>
+							<div class="button-group">
+								<a class="btn btn-default" ng-click="vm.follow_company(company.id)" ng-hide="vm.companies.items[{{$index}}].followed">FOLLOW</a>
+								<a class="btn btn-primary" ng-click="vm.unFollow_company(company.id)" ng-show="vm.companies.items[{{$index}}].followed">UNFOLLOW</a>
+							</div>
+						</li>
+						<div ng-show='vm.companies.busy'>Loading data...</div>
+					</ul>
+				</div>
+			</uib-tab>
+			<uib-tab index="2" heading="Events">
+				<div class="col-md-3">
+					<div class="side-filters">
+						<label>SEARCH
+							<input type="text" class="form-control" placeholder="Search for events" ng-model="searchedEvent">
+						</label>
+						<label>LOCATION 
+							<div class="select-style">
+							<!--
+								<select ng-model="selectedCity3">
+									<option value="">All Locations</option>
+									<option ng-repeat="location in vm.locations" value="{{location.location_desc}}">{{location.location_desc}}</option>
+								</select>
+								-->
+								<select ng-model="selectedCity3">
+ 									<option value="">All Locations</option>
+ 									<option ng-repeat="event in vm.events.items" value="{{event.city}}">{{event.city}}</option>
+ 								</select>
+							</div>
+						</label>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<ul class="directory-events" infinite-scroll='vm.events.nextPage()' infinite-scroll-disabled='vm.activeTab != 2 || vm.events.busy'  infinite-scroll-distance='0' style="overflow-y: auto;">
+						<li ng-repeat="event in vm.events.items | filter:searchedEvent | filter:selectedCity3">
+							<a ng-href="#/events/{{event.eventTagId}}">
+								<img ng-src="{{event.poster}}">
+								<div>
+									<h4 class="truncate">{{event.eventName ? event.eventName : 'Not Mentioned'}}</h4>
+									<p class="truncate">{{event.date ? event.date : 'Not Specified'}} </p>
+									<p class="truncate">{{event.time ? event.time : 'Not Specified'}} </p>
+									<p class="truncate"><i class="fa fa-map-marker"></i> {{event.city ? event.city : 'Not Mentioned'}} </p>
+									<p class="truncate"><small>{{event.description ? event.description : 'No Details Provided'}}</small></p>
+								</div>
+							</a>
+							<hr>
+							<div class="button-group" ng-show="!vm.checkEventFinished(vm.events.items[{{$index}}].date_time_formatted)"><!--!vm.events.items[{{$index}}].joining && -->
+								<a class="btn btn-default" ng-click="vm.going_event(event.id)" ng-hide="vm.events.items[{{$index}}].joining">JOIN</a>
+								<a class="btn btn-primary" ng-click="vm.notGoing_event(event.id)" ng-show="vm.events.items[{{$index}}].joining">NOT JOINING ANYMORE</a>
+							</div>
+						</li>
+						<div ng-show='vm.events.busy'>Loading data...</div>
+					</ul>					
+				</div>
+			</uib-tab>
+		</uib-tabset>
+	</div>
+</div>
+</br>

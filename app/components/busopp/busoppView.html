@@ -1,0 +1,115 @@
+<div id="home">
+
+	<div id="wrapper" ng-class="{'toggled': isActive}">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<ul class="sidebar-nav">
+				<li><h3>COMMUNITY</h3></li>
+				<li><a ng-href="#/home">News Feed</a></li>
+				<li><a ng-href="#/mycompany">My Company</a></li>
+				<li><a ng-href="#/directory/events">Events</a></li>
+				<li><a ng-href="#/add-event">Add Events</a></li>
+				<li><a ng-href="#/directory">Directory</a></li>
+				<!--<li><a ng-href="#/directory">Benefits & Discounts</a></li>-->
+				<li><a ng-href="#/business-opportunities">Business Opportunities</a></li>
+				<br>
+				<li><h3>SERVICES</h3></li>
+				<li><a href="#/spaces" >Book Meeting Room</a></li>
+				<!--<li><a href="#/spaces" >Book Workspace</a></li>-->
+				<li><a href="#/callanswering">Manage Calls</a></li>
+				<!--<li><a href="#/callanswering" >Manage Mails</a></li>-->
+				<!--<li><a ng-href="#/home">Facilities Support</a></li>-->
+				<!--<li><a ng-href="#/home">Contact Us</a></li>-->
+			</ul>
+		</div>
+		<!-- /#sidebar-wrapper -->
+
+		<!-- Page Content -->
+		<div class="button-fab" ng-class="{'slide': isActive}">
+			<a class="button-toggle" ng-click="toggleMenu()"> <i class="fa fa-compass fa-2x" aria-hidden="true"></i></a>
+		</div>
+		<div id="page-content-wrapper">
+			<div class="container" infinite-scroll='triggerNextPage()' infinite-scroll-disabled=''  infinite-scroll-distance='0'>
+				<div class="row">
+					<div class="col-md-2">
+						<div id="myProfile" class="card">
+							<a ng-href="#/myprofile">
+								<img class="img-circle" ng-src="{{vm.avatar}}">
+								<h3>{{vm.firstName + " " +vm.lastName}}</h3>
+								<p>{{vm.position}}</p>
+								<p>at {{vm.myOffice}}</p>
+							</a>
+						</div>
+						<h5>COMMUNITY</h5>
+						<div id="sideNav" class="card">
+							<ul>
+							   <li><a ng-href="#/home">News Feed</a></li>
+								<li><a ng-href="#/mycompany">My Company</a></li>
+								<li><a ng-href="#/directory/events">Events</a></li>
+								<li><a ng-href="#/add-event">Add Events</a></li>
+								<li><a ng-href="#/directory/members">Directory</a></li>
+								<!--<li><a ng-href="#/directory">Benefits & Discounts</a></li>-->
+								<li><a ng-href="#/business-opportunities">Business Opportunities</a></li>
+							</ul>
+						</div>
+
+						<h5>SERVICES</h5>
+						<div id="sideNav" class="card">
+							<ul>
+								<li><a href="#/spaces" >Book Meeting Room</a></li>
+								<!--<li><a href="#/spaces" >Book Workspace</a></li>-->
+								<li><a href="#/callanswering">Manage Calls</a></li>
+								<!--<li><a href="#/callanswering" >Manage Mails</a></li>-->
+								<!--<li><a ng-href="#/home">Facilities Support</a></li>-->
+								<!--<li><a ng-href="#/home">Contact Us</a></li>-->
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div>
+							<div id="busopp">
+						        <div class="title no-margin">
+						            <h3>Business Opportunities<i class="fa fa-briefcase fa-lg pull-right"></i></h3>
+
+						        </div>
+								<uib-tabset active="vm.activeTab">
+									<uib-tab index="0" heading="Matched Business Opportunities">
+										<news-feed poststype="8" istextareahidden="false" username="vm.userName" triggernextpage="vm.isTriggerNextPageMatchedBO" reloadnewsfeed="vm.isReloadMatched"></news-feed>
+									</uib-tab>
+									<uib-tab index="1" heading="Other Business Opportunities">
+										<news-feed poststype="5" istextareahidden="false" username="vm.userName" triggernextpage="vm.isTriggerNextPageOtherBO" reloadnewsfeed="vm.isReloadAll"></news-feed>
+									</uib-tab>
+								</uib-tabset>
+
+						    </div>
+						</div>
+					</div>
+					<div class="col-md-4">
+
+						<div id="latestEvents" class="card">
+							<h4>UPCOMING EVENTS</h4>
+							<ul>
+								<li ng-repeat="	latestEvent in vm.latestEvents">
+									<a ng-href="#/events/{{latestEvent.eventTagId}}">
+										<img ng-src="{{latestEvent.poster}}">
+										<p>{{latestEvent.name}}</p>
+										<p>{{latestEvent.date}}</p>
+									</a>
+								</li>
+							</ul>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /#page-content-wrapper -->
+	</div>
+</div>
+
+
+
+
+
+

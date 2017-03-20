@@ -1,0 +1,2 @@
+[05-Jul-2016 09:31:24 UTC] PHP Warning:  require_once(Query.php): failed to open stream: No such file or directory in /home/entreprenity/public_html/app/others/spaceAuthVerify.php on line 3
+[05-Jul-2016 09:31:24 UTC] PHP Fatal error:  require_once(): Failed opening required 'Query.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/entreprenity/public_html/app/others/spaceAuthVerify.php on line 3
