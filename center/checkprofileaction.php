@@ -17,6 +17,18 @@ $locId   		 = $_POST['locId'];
 $loginDate 		 = $_POST['loginDate'];
 $checktype		 = $_POST['checktype'];//in db
 $checkintype	 = $_POST['checkintype'];//new value
+if(isset($_POST['code']))
+{
+
+		$code	 = $_POST['code'];//new value
+}
+else
+{
+	
+		$code=uniqueCheckinCode();
+
+}
+echo $code;
 
 $query= "SELECT * FROM location_info WHERE id =".$locId;
 $res = getData($query);
@@ -38,13 +50,13 @@ echo $checkintype;*/
 //2 checkout
 if($checkintype == 1)
 {
-$result = logUserIntoThisCenter($clientid,$vofClientId,$locId,$checkintype);
+$result = logUserIntoThisCenter($clientid,$vofClientId,$locId,$checkintype,$code);
 
 }
 
 else 
 {
-	$result = logUserIntoThisCenter($clientid,$vofClientId,$locId,$checkintype);
+	$result = logUserIntoThisCenter($clientid,$vofClientId,$locId,$checkintype,$code);
 	
 }
 
@@ -68,7 +80,7 @@ echo "failed";
 <html>
 <head></head>
 <body>
-hiiiiii
+
 </body>
 
 </html>

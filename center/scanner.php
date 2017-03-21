@@ -34,8 +34,10 @@ $result = getUsersForLocation($locId);
     <th>Client ID</th> 
     <th>Name</th>
     <th>Date</th>
-    <th>Check Type</th>
-    <th>Check Time</th>
+   <!-- <th>Check Type</th>-->
+    <th>Check IN  Time</th>
+    <th>Check OUT Time</th>
+    <th>Total hours used</th>
     <!--<th>Check In</th>
     <th>Check Out</th>
     <th>Total hrs</th>-->
@@ -51,12 +53,20 @@ foreach($result as $row) {
 	    <td><?php echo $row['vofClientId'];?></td>
 	    <td><?php echo $row['firstname']." ".$row['lastname'];?></td>
 	    <td><?php echo $row['loginDate'];?></td>
-	    <?php if($row['checkType']==1 ){?>
-	    <td>Check In</td>
-	    <?php } else { ?>
-	      <td>Check Out</td>
-	      <?php } ?>
+	   
 	      <td><?php echo $row['checkIn'];?></td>
+	      <td><?php echo $row['checkout'];?></td>
+	      
+	      <td><?php
+	      if($row)
+	      $datetime1 = strtotime($row['checkIn']);
+			$datetime2 = strtotime($row['checkout']);
+			
+			$secs = $datetime2 - $datetime1;// == <seconds between the two times>
+			$days = $secs / 3600;
+	      	$sub=	$days;
+	      
+	       echo $sub; ?></td>
     <!--<td>10 am</td>
     <td>5 pm</td>
     <td>7</td>-->

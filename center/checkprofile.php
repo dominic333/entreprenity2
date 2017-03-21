@@ -17,8 +17,9 @@ $loginDate=date("Y-m-d");
 $locId = $_SESSION['locId'];
 $clientid = $result['clientid'];
 
-$checktype = fetchUserCheckInType($loginDate,$locId,$clientid);
-//echo $checktype;
+$result1 = fetchUserCheckInType($loginDate,$locId,$clientid);
+
+//echo $result1;
 
 ?>
 
@@ -74,7 +75,8 @@ $checktype = fetchUserCheckInType($loginDate,$locId,$clientid);
 	                  <input type="hidden" name="vofClientId" value="<?php echo $result['vofClientId'] ?>">
 	                  <input type="hidden" name="locId" value="<?php echo $locId ?>">
 	                  <input type="hidden" name="loginDate" value="<?php echo $loginDate ?>">
-	                  <input type="hidden" name="checktype" value="<?php echo $checktype ?>">
+	                  <input type="hidden" name="checktype" value="<?php echo $result1['checktype'] ?>">
+	                  <input type="hidden" name="code" value="<?php echo $result1['code'] ?>">
                   </form>
              
           </div>

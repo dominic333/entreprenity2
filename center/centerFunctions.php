@@ -83,13 +83,15 @@ function getCompanyName($entrpID)
 
 
 //Function to login a user into center
-function logUserIntoThisCenter($clientid,$vofClientId,$locId,$clocktype)
+function logUserIntoThisCenter($clientid,$vofClientId,$locId,$clocktype,$code)
 {
 	date_default_timezone_set('UTC');
 	$loginDate=date("Y-m-d");
 	$loginDateTime=date("Y-m-d H:i:s");
 	$status=1;
-	$qry="INSERT INTO entrp_center_login(entrpID,voffID,locID,loginDate,checkIn,checkType,status) VALUES(".$clientid.",".$vofClientId.",".$locId.",'".$loginDate."','".$loginDateTime."',".$clocktype.",".$status.") ";
+
+	$qry="INSERT INTO entrp_center_login(entrpID,voffID,locID,loginDate,checkIn,checkType,status,checkinCode) VALUES(".$clientid.",".$vofClientId.",".$locId.",'".$loginDate."','".$loginDateTime."',".$clocktype.",".$status.",".$code.") ";
+	echo $qry;
 	$result = setData($qry);
 	return $result;
 }
@@ -158,7 +160,10 @@ function getUsersForLocation($locId)
 	$query =   "SELECT EL.*,E.* 
 					FROM entrp_center_login as EL 
 					LEFT JOIN entrp_login as E on EL.voffID = E.vof_clientid 
-					WHERE locID = ".$locId." ORDER BY EL.checkIn DESC"; 
+					WHERE locID = ".$locId." AND EL.checkType=1
+					GROUP BY EL.loginDate,EL.entrpID
+					ORDER BY EL.checkIn DESC
+					"; 
 	//$query = "SELECT E.* from entrp_login AS E "; 
 	//echo $query;
 	$result = getData($query);
@@ -180,11 +185,16 @@ function getUsersForLocation($locId)
 			$data[$i]['checkType']	= $row['checkType'];			      				
 			$data[$i]['checkIn']	= $row['checkIn'];			      				
 			$data[$i]['success'] = 'true';
-			$resp =calculateTotalHrs($row['clientid'],$row['loginDate']);
+			$data[$i]['checkout'] =calculateTotalHrs($row['clientid'],$row['loginDate'],$row['locID']);
+			/*while($r = mysqli_fetch_array($resp))
+      	{
+						$data[$i]['checkout']=$r['checkIn'];
+			}*/
 
 			$i++;
 		}
    }
+//      print_r($data);
    return $data;
 
 
@@ -192,25 +202,32 @@ function getUsersForLocation($locId)
 
 //
 //
-function calculateTotalHrs($clientid,$loginDate)
+function calculateTotalHrs($clientid,$loginDate,$locId)
 {
 
 	$data 	=	array();
 	$query	=	"SELECT * 
 					FROM entrp_center_login
-					WHERE clientid ='".$clientid."' AND loginDate = '".$loginDate."' AND checkType =2";
-	echo $query;
-	$count_res = mysqli_num_rows($query);
+					WHERE entrpID ='".$clientid."' AND loginDate = '".$loginDate."' AND checkType =2 AND locID =".$locId."
+					ORDER BY checkIn DESC LIMIT 1";
+	$result = getData($query);
+//	echo $query;
+	$i=0;
+	$count_res = mysqli_num_rows($result);
 	if($count_res > 0)
    {
-   	while($row = mysqli_fetch_array($query))
+   	while($row = mysqli_fetch_array($result))
       {
-      	$data['checkIn'] =    $row['checkIn']  ;	
+      	$checkIn =    $row['checkIn']  ;	
+
 			
 		}
    }
-   			print_r($data);
-   return $data;
+   else {
+   	$checkIn="";
+   }
+
+   return $checkIn;
 	
 
 
@@ -232,17 +249,40 @@ function fetchUserCheckInType($loginDate,$locId,$clientid)
    {
      while($row = mysqli_fetch_array($result))
      {
-     		$checktype = $row['checkType']; //1 or 2
+     		$data['checktype'] 	= $row['checkType']; //1 or 2
+     		$data['code'] 		= $row['checkinCode']; //1 or 2
      }
    } 
    else 
    {
-      $checktype = 0;
+      $data['checktype']="";
+      $data['code'] 	="";
    }
-   return $checktype;
+   print_r($data);
+   return $data;
 
 
 }
+
+//Function to generate unique code
+//Annie,March 20, 2017
+function uniqueCheckinCode()
+{
+	$token = substr(md5(uniqid(rand(), true)),0,10);  // creates a 10 digit token
+	//SELECT * FROM `entrp_user_timeline` where post_img like '%timelineimgdominic.ronquillo20160816080631.jpeg%'
+   $qry = "SELECT * FROM entrp_center_login where checkinCode like '%$token%'";
+   $res=getData($qry);
+   $count_res=mysqli_num_rows($res);
+   if($count_res > 0)
+   {
+      uniqueCheckinCode();
+   } 
+   else 
+   {
+      return $token;
+   }	
+}
+
 
 
 ?>
