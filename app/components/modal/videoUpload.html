@@ -17,24 +17,55 @@
 	<button class="btn btn-default" type="button" ng-click="cancel()">CANCEL</button>
 </div>-->
 
-	
-		<textarea name="post" ng-model="post"  placeholder="Write something about your video"></textarea>
 
-      <br>Upload Video:
-      <input type="file" ngf-select ng-model="picFile" name="file"    
-             accept="video/*" ngf-max-size="30MB" required
-             ngf-model-invalid="errorFile">
-      <i ng-show="myForm.file.$error.required">*required</i><br>
-      <i ng-show="myForm.file.$error.maxSize">File too large 
-          {{errorFile.size / 1000000|number:1}}MB: max 30M</i>
-      <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> <button ng-click="picFile = null" ng-show="picFile">Remove</button>
-      <br>
-      <button  class="btn btn-primary btn-post" type="button" ng-click="uploadPic(picFile)">Submit</button>
-      <button class="btn btn-default" type="button" ng-click="cancel()">CANCEL</button>
-      <span class="progress" ng-show="picFile.progress >= 0">
-        <div style="width:{{picFile.progress}}%" 
-            ng-bind="picFile.progress + '%'"></div>
+<!--<textarea name="post" ng-model="post" placeholder="Write something about your video"></textarea>-->
+
+<!--<br>Upload Video:-->
+<!--<input type="file" ngf-select ng-model="picFile" name="file"-->
+       <!--accept="video/*" ngf-max-size="30MB" required-->
+       <!--ngf-model-invalid="errorFile">-->
+<!--<i ng-show="myForm.file.$error.required">*required</i><br>-->
+<!--<i ng-show="myForm.file.$error.maxSize">File too large-->
+    <!--{{errorFile.size / 1000000|number:1}}MB: max 30M</i>-->
+<!--<img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">-->
+<!--<button ng-click="picFile = null" ng-show="picFile">Remove</button>-->
+<!--<br>-->
+<!--<button class="btn btn-primary btn-post" type="button" ng-click="uploadPic(picFile)">Submit</button>-->
+<!--<button class="btn btn-default" type="button" ng-click="cancel()">CANCEL</button>-->
+<!--<span class="progress" ng-show="picFile.progress >= 0">-->
+        <!--<div style="width:{{picFile.progress}}%"-->
+             <!--ng-bind="picFile.progress + '%'"></div>-->
+      <!--</span>-->
+<!--<span ng-show="picFile.result">Upload Successful</span>-->
+<!--<span class="err" ng-show="errorMsg">{{errorMsg}}</span>-->
+
+
+<div class="modal-header">
+    <h3 class="modal-title">Post Your Video</h3>
+</div>
+<div class="modal-body">
+    <div>
+        <textarea name="post" ng-model="post" placeholder="Write something about your video"></textarea>
+
+        <br>Upload Video:
+        <input type="file" ngf-select ng-model="picFile" name="file"
+               accept="video/*" ngf-max-size="30MB" required
+               ngf-model-invalid="errorFile">
+        <i ng-show="myForm.file.$error.required">*required</i><br>
+        <i ng-show="myForm.file.$error.maxSize">File too large
+            {{errorFile.size / 1000000|number:1}}MB: max 30M</i>
+        <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
+        <button ng-click="picFile = null" ng-show="picFile">Remove</button>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary btn-post" type="button" ng-click="uploadPic(picFile)">Submit</button>
+    <button class="btn btn-default" type="button" ng-click="cancel()">CANCEL</button>
+
+    <span class="progress" ng-show="picFile.progress >= 0">
+        <div style="width:{{picFile.progress}}%"
+             ng-bind="picFile.progress + '%'"></div>
       </span>
-      <span ng-show="picFile.result">Upload Successful</span>
-      <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
-    
+    <span ng-show="picFile.result">Upload Successful</span>
+    <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+</div>
