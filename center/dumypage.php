@@ -59,9 +59,9 @@ if (isset($_GET["location"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="business network, business connections, business opportunities matching, entreprenuers, business network singapore,
-business network malaysia, business network indonesia, business network philippines, business network jakarta, self improvement workshop,
+business network malaysia, business network indonesia, business network philippines, business network jakarta, self improvement workshop, 
 business networking events, vOffice Global Network, Acceler8.ph philippines, Cre8.id indonesia, Uppercase.asia, meeting room booking, work space booking,
-coworking spaces, coworking events
+coworking spaces, coworking events 
 	">
     <title>Entreprenity - Community of Entrepreneurs | Engineering meaningful connections between people and enriching
         individuals</title>
@@ -74,12 +74,11 @@ coworking spaces, coworking events
 
     <link rel="stylesheet" href="../assets/fonts/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../assets/stylesheets/bootstrap-glyphicons.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
 
-    <script type="text/javascript" src="main.js"></script>
-    <script type="text/javascript" src="llqrcode.js"></script>
+    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="datatables/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
@@ -95,6 +94,12 @@ if ($show == 0) {
 }
 ?>
 
+<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="llqrcode.js"></script>
+
+<script type="text/javascript" src="bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="datatables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="datatables/dataTables.bootstrap.min.js"></script>
 
 </body>
 </html>

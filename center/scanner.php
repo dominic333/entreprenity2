@@ -3,11 +3,67 @@ $locId = $_SESSION['locId'];
 $result = getUsersForLocation($locId);
 //print_r($result);
 ?>
+
+<style>
+    table {
+        float: none;
+        width: inherit;
+        color: lightyellow;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 1px;
+    }
+
+    th {
+        background-color: dimgray;
+
+    }
+
+    /*=========datatable custom============*/
+    label {
+        color: #ffffff;
+    }
+
+    div.dataTables_wrapper div.dataTables_info {
+        color: white;
+    }
+
+    .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+        background-color: #ffa314;
+        border-color: #ffa314;
+    }
+
+    .pagination > li > a, .pagination > li > span {
+        color: #222;
+    }
+
+    .table-striped > tbody > tr:nth-of-type(2n+1) {
+        background-color: #000;
+    }
+
+    .table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+        border: 1px solid #000;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    /*=========datatable custom============*/
+
+</style>
+
 <div class="">
     <div class="container">
-        <div>
-            <h1>THIS IS TEST PAGE</h1>
-        </div>
+        <!--        <div>-->
+        <!--            <h1>THIS IS TEST PAGE</h1>-->
+        <!--        </div>-->
         <div class="row">
             <div class="col-md-12">
                 <h3 style="color:white;">ENTER QR CODE HERE:</h3>
@@ -22,68 +78,79 @@ $result = getUsersForLocation($locId);
 <h3 style="color: white;text-align:center;">CHECKED IN DETAILS</h3>
 <div class="">
     <div class="container">
-        <table style="border: 1px solid black;
-    border-collapse: collapse; color:gold;">
-            <thead>
+        <!--	<table style="border: 1px solid black; border-collapse: collapse; color:gold;">-->
 
-
-            </thead>
-            <tbody>
-            <tr>
-                <th>Sl No</th>
-                <th>Client ID</th>
-                <th>Name</th>
-                <th>Date</th>
-                <!-- <th>Check Type</th>-->
-                <th>Check IN Time</th>
-                <th>Check OUT Time</th>
-                <th>Total hours used</th>
-                <!--<th>Check In</th>
-                <th>Check Out</th>
-                <th>Total hrs</th>-->
-            </tr>
-            <?php
-            $index = 1;
-            foreach ($result as $row) {
-
-                ?>
-
+        <div class="table-responsive">
+            <table id="example" class="table table-striped table-bordered" width="100%" cellspacing="0"
+                   style="border: 1px solid black; border-collapse: collapse; color:gold;">
+                <thead>
                 <tr>
-                    <td><?php echo $index; ?></td>
-                    <td><?php echo $row['vofClientId']; ?></td>
-                    <td><?php echo $row['firstname'] . " " . $row['lastname']; ?></td>
-                    <td><?php echo $row['loginDate']; ?></td>
-
-                    <td><?php echo $row['checkIn']; ?></td>
-                    <td><?php echo $row['checkout']; ?></td>
-
-                    <td><?php
-                        if ($row)
-                            $datetime1 = strtotime($row['checkIn']);
-                        $datetime2 = strtotime($row['checkout']);
-
-                        $secs = $datetime2 - $datetime1;// == <seconds between the two times>
-                        $days = $secs / 3600;
-                        $sub = $days;
-
-                        echo $sub; ?></td>
-                    <!--<td>10 am</td>
-                    <td>5 pm</td>
-                    <td>7</td>-->
+                    <th>Sl No</th>
+                    <th>Client ID</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <!-- <th>Check Type</th>-->
+                    <th>Check IN Time</th>
+                    <th>Check OUT Time</th>
+                    <th>Total hours used</th>
+                    <th>Total Credits</th>
+                    <th>Credits left</th>
+                    <!--<th>Check In</th>
+                    <th>Check Out</th>
+                    <th>Total hrs</th>-->
                 </tr>
 
+                </thead>
+                <tbody>
+
                 <?php
-                $index++;
-            }
-            ?>
+                $index = 1;
+                foreach ($result as $row) {
+
+                    ?>
+
+                    <tr>
+                        <td><?php echo $index; ?></td>
+                        <td><?php echo $row['vofClientId']; ?></td>
+                        <td><?php echo $row['firstname'] . " " . $row['lastname']; ?></td>
+                        <td><?php echo $row['loginDate']; ?></td>
+
+                        <td><?php echo $row['checkIn']; ?></td>
+                        <td><?php echo $row['checkout']; ?></td>
+
+                        <td><?php
+
+                            $data_1 = calculateTotalHrs($row['vofClientId'], $row['loginDate'], $locId);
+                            echo $data_1['checkTime'];/*   if($row)
+	      $datetime1 = strtotime($row['checkIn']);
+			$datetime2 = strtotime($row['checkout']);
+			
+			$secs = $datetime2 - $datetime1;// == <seconds between the two times>
+			$days = $secs / 3600;
+	      	$sub=	$days;
+	      
+	       echo $sub*/; ?></td>
+                        <!--<td>10 am</td>
+                        <td>5 pm</td>
+                        <td>7</td>-->
+                        <?php $credit = getCreditLeft($row['vofClientId']); ?>
+                        <td><?php echo $credit['monthly_core_credit']; ?></td>
+                        <td><?php echo $credit['monthly_core_credit'] - $credit['monthly_credit']; ?></td>
+                    </tr>
+
+                    <?php
+                    $index++;
+                }
+                ?>
 
 
-            </tbody>
+                </tbody>
 
 
-        </table>
+            </table>
 
 
+        </div>
     </div>
 </div>
 
@@ -124,9 +191,15 @@ $result = getUsersForLocation($locId);
 
 
 <script src="jquery-1.11.2.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+
+<!--Datatables-->
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -212,24 +285,3 @@ $result = getUsersForLocation($locId);
 
 
 </script>
-<style>
-    table {
-        float: none;
-        width: inherit;
-        color: lightyellow;
-    }
-
-    table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        padding: 1px;
-    }
-
-    th {
-        background-color: dimgray;
-
-    }
-</style>

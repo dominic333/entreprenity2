@@ -63,9 +63,9 @@ $result1 = fetchUserCheckInType($loginDate, $locId, $clientid);
 
                         <select name="checkintype">
 
-                            <?php if ($checktype == 0 || $checktype == 2) { ?>
+                            <?php if ($result1['checktype'] == 0 || $result1['checktype'] == 2) { ?>
                                 <option value="1" label="checktype">Check In</option>
-                            <?php } else if ($checktype == 1) { ?>
+                            <?php } else if ($result1['checktype'] == 1) { ?>
                                 <option value="2" label="checktype">Check out</option>
                             <?php } else {
                             } ?>

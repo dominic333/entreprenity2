@@ -17,18 +17,17 @@ $locId   		 = $_POST['locId'];
 $loginDate 		 = $_POST['loginDate'];
 $checktype		 = $_POST['checktype'];//in db
 $checkintype	 = $_POST['checkintype'];//new value
-if(isset($_POST['code']))
-{
 
-		$code	 = $_POST['code'];//new value
-}
-else
-{
-	
-		$code=uniqueCheckinCode();
+$t= $_POST['code'];
+if($t !=""){
 
+$code	=$_POST['code'];
 }
-echo $code;
+else {
+	$code = uniqueCheckinCode();
+	}
+	//echo $code;
+//$code = uniqueCheckinCode();
 
 $query= "SELECT * FROM location_info WHERE id =".$locId;
 $res = getData($query);
@@ -50,13 +49,13 @@ echo $checkintype;*/
 //2 checkout
 if($checkintype == 1)
 {
-$result = logUserIntoThisCenter($clientid,$vofClientId,$locId,$checkintype,$code);
+$result = logUserIntoThisCenter($clientid,$vofClientId,$locId,1,$code);
 
 }
 
 else 
 {
-	$result = logUserIntoThisCenter($clientid,$vofClientId,$locId,$checkintype,$code);
+	$result = logUserIntoThisCenter($clientid,$vofClientId,$locId,2,$code);
 	
 }
 
