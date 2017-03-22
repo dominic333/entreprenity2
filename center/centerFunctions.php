@@ -250,7 +250,8 @@ function calculateTotalHrs($clientid,$loginDate,$locId)
 	$i=0;
 	$checkTime = 0;
 	$time = 0;
-
+	$checkin=array();
+	$checkout=array();
 
 	$count_res = mysqli_num_rows($result);
 	if($count_res > 0)
@@ -261,12 +262,44 @@ function calculateTotalHrs($clientid,$loginDate,$locId)
       	//$checkTime =    $checkTime - strtotime($row['checkIn']) ;	
       	$data[$i]['checkinCode'] 	= $row['checkinCode'];
       	$data[$i]['checkIn'] 	= $row['checkIn'];
+      	$data[$i]['checkType'] 	= $row['checkType'];
+      	if($row['checkType'] == 1)
+      	{
+      	
+				array_push($checkin,$row['checkIn']);      	
+      	
+      	}
+      	else 
+      	{
+      		array_push($checkout,$row['checkIn'])	;
+      	}
+      	
+      	
+      	
+      	
       	
 			$i++;
 		}
-		/*print_r($data);
-		echo count($data);*/
-		for($i = 0;$i < count($data)-1; $i++)
+		/*print_r($checkin);
+		print_r($checkout);*/
+//		echo count($checkin)." - ".count($checkout);
+		for($j = 0; $j < count($checkin); $j++)
+		{
+			if(!$checkout[$j])
+			{
+				$checkout[$j] = "0000-00-00 00:00:00";
+			}
+			$diff = strtotime($checkout[$j]) - strtotime($checkin[$j]);
+//			echo $diff;
+			$checkTime = $checkTime+$diff/3600;
+		
+		
+		}
+//		echo $time;
+//		$checkTime_4 = round($time/60,3);
+//		echo $checkTime;
+	
+		/*for($i = 0;$i < count($data)-1; $i++)
 		{
 //			echo"test";
 			$time=$time+abs(strtotime($data[$i+1]['checkIn'])-strtotime($data[$i]['checkIn']));
@@ -274,9 +307,8 @@ function calculateTotalHrs($clientid,$loginDate,$locId)
 //			echo $checkTime;
 		
 		}
-		$checkTime = round($time/3600,5);
-//		echo $checkTime;
-		echo $checkTime;
+		$checkTime = round($time/3600,5);*/
+		return $checkTime;
 		
    }
    else 
@@ -296,8 +328,8 @@ function fetchUserCheckInType($loginDate,$locId,$clientid)
 	$data 	=		array();
 	$query   =		"SELECT * 
 						 FROM entrp_center_login 
-						 WHERE loginDate ='".$loginDate."'AND locID = '".$locId."'AND entrpID ='".$clientid."' 
-						 ORDER BY id DESC LIMIT 1  ";
+						 WHERE locID = '".$locId."'AND entrpID ='".$clientid."' 
+						 ORDER BY id DESC LIMIT 1  ";//loginDate ='".$loginDate."'AND
 	$result = getData($query);
 	$count_res = mysqli_num_rows($result);
 	if($count_res > 0)
@@ -337,6 +369,40 @@ function uniqueCheckinCode()
    {
       return $token;
    }	
+}
+//function to get credit left for the client
+//Annie, march 21,2017
+function getCreditLeft($vofClientId,$time) 
+{
+	
+	$query	=	"SELECT * FROM entrp_credit_core WHERE client_id=".$vofClientId;
+//	echo $query;
+	$result	=	getData($query);
+	$count_result = mysqli_num_rows($result);
+	if($count_result > 0)
+	{
+	
+	  while($row = mysqli_fetch_array($result))
+     {
+     		$data['monthly_credit'] 	= $row['monthly_credit']; //1 or 2
+     		$data['monthly_core_credit'] 		= $row['monthly_core_credit']; //1 or 2
+   		$data['total_hours']	=$data['monthly_core_credit'];
+     
+     //1 co-hour 	= 	1 credit = 60 co-minutes
+     //1 co-min	=	1/60 credit	=0.017 credits
+     //say 18 co-min,0.017*18 =0.306 credits
+     
+     		$data['creditsUsed'] = 0.017*$time;
+     		$data['creditLeft']=$data['monthly_core_credit']-$data['creditsUsed'];
+		  }
+	
+	}
+	else
+	{
+		return 0;
+	}
+	return $data;
+	
 }
 
 

@@ -92,6 +92,7 @@ $result = getUsersForLocation($locId);
                     <!-- <th>Check Type</th>-->
                     <th>Check IN Time</th>
                     <th>Check OUT Time</th>
+                    <th>Total hours </th>
                     <th>Total hours used</th>
                     <th>Total Credits</th>
                     <th>Credits left</th>
@@ -117,25 +118,18 @@ $result = getUsersForLocation($locId);
 
                         <td><?php echo $row['checkIn']; ?></td>
                         <td><?php echo $row['checkout']; ?></td>
-
-                        <td><?php
+									<?php
 
                             $data_1 = calculateTotalHrs($row['vofClientId'], $row['loginDate'], $locId);
-                            echo $data_1['checkTime'];/*   if($row)
-	      $datetime1 = strtotime($row['checkIn']);
-			$datetime2 = strtotime($row['checkout']);
-			
-			$secs = $datetime2 - $datetime1;// == <seconds between the two times>
-			$days = $secs / 3600;
-	      	$sub=	$days;
-	      
-	       echo $sub*/; ?></td>
-                        <!--<td>10 am</td>
-                        <td>5 pm</td>
-                        <td>7</td>-->
-                        <?php $credit = getCreditLeft($row['vofClientId']); ?>
+                            
+                            $credit = getCreditLeft($row['vofClientId'],$data_1);
+                            ?>
+                        <td><?php echo $credit['total_hours'];?></td>
+                        <td><?php echo $data_1;?></td>
+                      
+                        <?php  ?>
                         <td><?php echo $credit['monthly_core_credit']; ?></td>
-                        <td><?php echo $credit['monthly_core_credit'] - $credit['monthly_credit']; ?></td>
+                        <td><?php echo $credit['creditLeft']; ?></td>
                     </tr>
 
                     <?php
