@@ -164,17 +164,30 @@ $result = getUsersForLocation($locId);
     </div>
 </div>
 
-<div id="failureModal" class="modal fade in">
-    <div class="modal-dialog">
+
+<div class="modal fade in" id="failureModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
+            <!-- Modal Header -->
             <div class="modal-header">
-                <img id="errorIcon" class="img-circle" src="../assets/img/qr-code-scanner-fail.png" alt="Avatar"
-                     width="80">
-                <h1>Code Scanning Failed!</h1>
+                <button type="button" class="close"
+                        data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Code Scanning Failed!
+                </h4>
             </div>
-            <div id="errorMsgDiv" class="modal-body" style="color:black;">
-                <div class="arrow-down"></div>
+
+            <!-- Modal Body -->
+            <div class="modal-body" id="errorMsgDiv">
                 <p>Please try again</p>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
                 <button type="button" id="failbutton" class="btn btn-primary" data-toggle="modal"
                         data-target="#failureModal">TRY AGAIN
                 </button>
@@ -182,6 +195,7 @@ $result = getUsersForLocation($locId);
         </div>
     </div>
 </div>
+
 
 
 <script src="jquery-1.11.2.min.js"></script>
