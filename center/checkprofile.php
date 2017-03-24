@@ -19,7 +19,7 @@ $clientid = $result['clientid'];
 $result1 = fetchUserCheckInType($loginDate, $locId, $clientid);
 
 //echo $result1;
-
+ $credit = getCreditLeft($result['vofClientId']);
 ?>
 
 
@@ -110,6 +110,18 @@ $result1 = fetchUserCheckInType($loginDate, $locId, $clientid);
                                     <td><?php echo $result['email'] ?>
                                     <td>
                                 </tr>
+                                 <tr>
+                                    <td><b>TOTAL HOURS(In Min) :</b>
+                                    <td>
+                                    <td><?php echo $credit['co_work_hours_limit'] ?>
+                                    <td>
+                                </tr>
+                                 <tr>
+                                    <td><b>TOTAL HOURS LEFT(In Min) :</b>
+                                    <td>
+                                    <td><?php echo $credit['co_work_hours_left'] ?>
+                                    <td>
+                                </tr>
                                 <tr>
                                     <td><b>CHECK TYPE :</b>
                                     <td>
@@ -130,7 +142,7 @@ $result1 = fetchUserCheckInType($loginDate, $locId, $clientid);
 
                     <!-- Modal Footer -->
                     <div class="modal-footer">
-                        <button type="reset" class="btn btn-danger"
+                        <button type="reset" class="btn btn-danger" id="cancel_modal"
                                 data-dismiss="modal">
                             Cancel
                         </button>
@@ -140,7 +152,16 @@ $result1 = fetchUserCheckInType($loginDate, $locId, $clientid);
                         <input type="hidden" name="locId" value="<?php echo $locId ?>">
                         <input type="hidden" name="loginDate" value="<?php echo $loginDate ?>">
                         <input type="hidden" name="checktype" value="<?php echo $result1['checktype'] ?>">
-                        <input type="hidden" name="code" value="<?php echo $result1['code'] ?>">
+ 								<?php
+ 								 if ($result1['checktype'] == 0 || $result1['checktype'] == 2) { 
+ 								?>
+      				          <input type="hidden" name="code" value="">
+                        <?php } 
+                        else if ($result1['checktype'] == 1) { ?>
+               				 <input type="hidden" name="code" value="<?php  echo $result1['code'] ?>">
+                        <?php }
+                         else {
+                         } ?>
                         </form>
                     </div>
                 </div>
@@ -156,6 +177,20 @@ $result1 = fetchUserCheckInType($loginDate, $locId, $clientid);
 <script type="text/javascript" src="llqrcode.js"></script>
 
 <script type="text/javascript" src="bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+
+	$('#cancel_modal').click(function(){
+		 window.history.back();	
+	});
+	
+	$('.close').click(function(){
+		 window.history.back();	
+	});
+
+});
+</script>
 <!--<script type="text/javascript">
 var data = localStorage.getItem('myMainKey');
 console.log(data);

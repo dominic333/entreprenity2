@@ -81,8 +81,7 @@ $result = getUsersForLocation($locId);
         <!--	<table style="border: 1px solid black; border-collapse: collapse; color:gold;">-->
 
         <div class="table-responsive">
-            <table id="example" class="table table-striped table-bordered" width="100%" cellspacing="0"
-                   style="border: 1px solid black; border-collapse: collapse; color:gold;">
+            <table id="example" class="table table-striped table-bordered" width="100%" cellspacing="0" style="border: 1px solid black; border-collapse: collapse; color:gold;">
                 <thead>
                 <tr>
                     <th>Sl No</th>
@@ -92,10 +91,8 @@ $result = getUsersForLocation($locId);
                     <!-- <th>Check Type</th>-->
                     <th>Check IN Time</th>
                     <th>Check OUT Time</th>
-                    <th>Total hours </th>
-                    <th>Total hours used</th>
-                    <th>Total Credits</th>
-                    <th>Credits left</th>
+                    <th>Total hours(in minutes) </th>
+                    <th>Total hours left(in minutes)</th>>
                     <!--<th>Check In</th>
                     <th>Check Out</th>
                     <th>Total hrs</th>-->
@@ -109,7 +106,12 @@ $result = getUsersForLocation($locId);
                 foreach ($result as $row) {
 
                     ?>
+								<?php
 
+                           // $data_1 = calculateTotalHrs($row['vofClientId'], $row['loginDate'], $locId);
+                            
+                            $credit = getCreditLeft($row['vofClientId']);
+                        ?>
                     <tr>
                         <td><?php echo $index; ?></td>
                         <td><?php echo $row['vofClientId']; ?></td>
@@ -117,19 +119,31 @@ $result = getUsersForLocation($locId);
                         <td><?php echo $row['loginDate']; ?></td>
 
                         <td><?php echo $row['checkIn']; ?></td>
-                        <td><?php echo $row['checkout']; ?></td>
-									<?php
-
-                            $data_1 = calculateTotalHrs($row['vofClientId'], $row['loginDate'], $locId);
-                            
-                            $credit = getCreditLeft($row['vofClientId'],$data_1);
-                            ?>
-                        <td><?php echo $credit['total_hours'];?></td>
-                        <td><?php echo $data_1;?></td>
+                        
+                        <td><?php 
+                        
+                        		if($row['checkout']!= "")
+                        		{
+                        			echo $row['checkout'];
+                        		}
+										else 
+										{
+											echo "NA";
+										}                        
+                        
+                         	?>
+                        </td>
+							
+                        <td><?php echo $credit['co_work_hours_limit'];?></td>
+                        <td><?php
+                        	 
+											echo $credit['co_work_hours_left'];                        	 
+                        	 
+                        
+                        
+                        ?></td>
                       
-                        <?php  ?>
-                        <td><?php echo $credit['monthly_core_credit']; ?></td>
-                        <td><?php echo $credit['creditLeft']; ?></td>
+                      
                     </tr>
 
                     <?php

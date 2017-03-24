@@ -157,13 +157,15 @@ function getUsersForLocation($locId)
 {
    //	$locId = $_SESSION['locId'];
 	$data = array();		
+	$checkout1=array();
 	$query =   "SELECT EL.*,E.* 
 					FROM entrp_center_login as EL 
 					LEFT JOIN entrp_login as E on EL.voffID = E.vof_clientid 
-					WHERE locID = ".$locId." AND EL.checkType=1
-					GROUP BY EL.loginDate,EL.entrpID
+					WHERE locID = ".$locId." 
+					AND EL.checkType=1
 					ORDER BY EL.checkIn DESC
 					"; 
+					//
 	//$query = "SELECT E.* from entrp_login AS E "; 
 	//echo $query;
 	$result = getData($query);
@@ -186,7 +188,13 @@ function getUsersForLocation($locId)
 			$data[$i]['checkIn']		= $row['checkIn'];			      				
 			$data[$i]['checkinCode']	= $row['checkinCode'];			      				
 			$data[$i]['success'] 	= 'true';
-			$data[$i]['checkout']	=	getCheckOut($row['clientid'],$row['loginDate'],$row['locID']);
+			$data[$i]['checkout']	=	getCheckOut($row['clientid'],$row['loginDate'],$row['locID'],$row['checkinCode']);
+//			print_r($checkout1);
+			/*foreach($checkout1 as $row1)
+			{
+				$data[$i]['checkout']=$row1['checkIn'];
+			
+			}*/
 //			$data[$i]['time']			=	calculateTotalHrs($row['clientid'],$row['loginDate'],$row['locID'],$row['checkinCode']);
 			/*while($r = mysqli_fetch_array($resp))
       	{
@@ -204,14 +212,15 @@ function getUsersForLocation($locId)
 
 //
 //
-function getCheckOut($clientid,$loginDate,$locId)
+function getCheckOut($clientid,$loginDate,$locId,$code)
 {
-
+	
 	$data 	=	array();
+	$i=0;
 	$query	=	"SELECT * 
 					FROM entrp_center_login
-					WHERE entrpID ='".$clientid."' AND loginDate = '".$loginDate."' AND checkType =2 AND locID =".$locId."
-					ORDER BY checkIn DESC LIMIT 1";
+					WHERE entrpID ='".$clientid."' AND loginDate = '".$loginDate."' AND checkType =2 AND locID =".$locId." AND checkinCode='".$code."'
+					ORDER BY checkIn DESC"; //DESC LIMIT 1";
 	$result = getData($query);
 //	echo $query;
 	$i=0;
@@ -221,7 +230,7 @@ function getCheckOut($clientid,$loginDate,$locId)
    	while($row = mysqli_fetch_array($result))
       {
       	$checkIn =    $row['checkIn']  ;	
-
+			$i++;
 			
 		}
    }
@@ -229,7 +238,8 @@ function getCheckOut($clientid,$loginDate,$locId)
    	$checkIn="";
    }
 
-   return $checkIn;
+//  print_r($checkIn);
+  return $checkIn;
 	
 
 
@@ -280,9 +290,7 @@ function calculateTotalHrs($clientid,$loginDate,$locId)
       	
 			$i++;
 		}
-		/*print_r($checkin);
-		print_r($checkout);*/
-//		echo count($checkin)." - ".count($checkout);
+	
 		for($j = 0; $j < count($checkin); $j++)
 		{
 			if(!$checkout[$j])
@@ -295,20 +303,9 @@ function calculateTotalHrs($clientid,$loginDate,$locId)
 		
 		
 		}
-//		echo $time;
-//		$checkTime_4 = round($time/60,3);
-//		echo $checkTime;
-	
-		/*for($i = 0;$i < count($data)-1; $i++)
-		{
-//			echo"test";
-			$time=$time+abs(strtotime($data[$i+1]['checkIn'])-strtotime($data[$i]['checkIn']));
-
-//			echo $checkTime;
 		
-		}
-		$checkTime = round($time/3600,5);*/
-		return $checkTime;
+	
+	//	return $checkTime;
 		
    }
    else 
@@ -372,10 +369,10 @@ function uniqueCheckinCode()
 }
 //function to get credit left for the client
 //Annie, march 21,2017
-function getCreditLeft($vofClientId,$time) 
+function getCreditLeft($vofClientId) 
 {
 	
-	$query	=	"SELECT * FROM entrp_credit_core WHERE client_id=".$vofClientId;
+/*	$query	=	"SELECT * FROM entrp_credit_core WHERE client_id=".$vofClientId;
 //	echo $query;
 	$result	=	getData($query);
 	$count_result = mysqli_num_rows($result);
@@ -384,25 +381,121 @@ function getCreditLeft($vofClientId,$time)
 	
 	  while($row = mysqli_fetch_array($result))
      {
-     		$data['monthly_credit'] 	= $row['monthly_credit']; //1 or 2
+     	/*	$data['monthly_credit'] 	= $row['monthly_credit']; //1 or 2
      		$data['monthly_core_credit'] 		= $row['monthly_core_credit']; //1 or 2
-   		$data['total_hours']	=$data['monthly_core_credit'];
+   		$data['total_hours']	=0.3*$data['monthly_core_credit'];
      
      //1 co-hour 	= 	1 credit = 60 co-minutes
      //1 co-min	=	1/60 credit	=0.017 credits
      //say 18 co-min,0.017*18 =0.306 credits
      
      		$data['creditsUsed'] = 0.017*$time;
-     		$data['creditLeft']=$data['monthly_core_credit']-$data['creditsUsed'];
-		  }
+     		$data['creditLeft']=$data['monthly_core_credit']-$data['creditsUsed'];*/
+     		
+		//}
+	/*	$update = "UPDATE entrp_core_credit SET monthly_credit =".$data['creditLeft']."WHERE entrpID =".$vofClientId;
+		$update_res =getData($update);
 	
 	}
 	else
 	{
 		return 0;
 	}
-	return $data;
+	return $data;*/
 	
+	$clientfacilitiesquery	= "SELECT * 
+											FROM client_facilities_core
+											WHERE client_id =".$vofClientId;
+											
+		$resultfacilities	=	getData($clientfacilitiesquery);									
+		$count_facilities = mysqli_num_rows($resultfacilities);								
+		if($count_facilities >0)
+		{
+			while($row = mysqli_fetch_array($resultfacilities))
+      	{
+      			$facilities['co_work_hours_limit']		=		$row['co_work_hours_limit'];
+      			$facilities['co_work_hours_left']		=		$row['co_work_hours_left'];
+      	}
+		
+		
+		}	
+		else 
+		{
+			return 0;
+		
+		}
+		return $facilities;
+	
+	
+	
+	
+}
+
+function updateTime($vofClientId,$code)
+{
+
+	$facilities=array();
+	$query_1 = "SELECT * 
+				 FROM entrp_center_login
+				 WHERE  voffID =".$vofClientId." AND checkCode=' ".$code."'";
+	$result_1 =getData($query_1);
+	$count_res = mysqli_num_rows($result_1);
+	if($count_res > 0)
+   {
+   	while($row = mysqli_fetch_array($result_1))
+      {
+      	$data['checkinCode'] 	= $row['checkinCode'];
+      	$data['checkIn'] 	= $row['checkIn'];
+      	$data['checkType'] 	= $row['checkType'];
+      	if($row['checkType'] == 1)
+      	{
+      	
+				//array_push($checkin,$row['checkIn']);   
+				$checkIn=$row['checkIn'];   	
+      	
+      	}
+      	else 
+      	{
+//      		array_push($checkout,$row['checkIn'])	;
+				$checkOut=$row['checkIn'];   	
+      	}
+      	
+      	$diff = strtotime($checkOut) - strtotime($checkIn);
+//			echo $diff;
+			$checkTime = $checkTime+$diff/60;
+			echo $checkTime;
+      }
+
+		//update query for updation of cowork hours
+		$clientfacilitiesquery	= "SELECT * 
+											FROM client_facilities_core
+											WHERE client_id =".$vofClientId;
+
+		$resultfacilities	=	getData($clientfacilitiesquery);									
+		$count_facilities = mysqli_num_rows($resultfacilities);								
+		if($count_facilities >0)
+		{
+			while($row = mysqli_fetch_array($resultfacilities))
+      	{
+      			$facilities['co_work_hours_limit']		=		$row['co_work_hours_limit'];
+      			$facilities['co_work_hours_left']		=		$row['co_work_hours_left'];
+      	}
+      		
+			$co_work_left			=		$facilities['co_work_hours_limit']-	$checkTime;
+			
+			$updatefacilities		=		"UPDATE client_facilities_core SET co_work_hours_left =".$co_work_left."WHERE client_id =".$vofClientId;
+				
+			echo $updatefacilities;								
+			$re 						=		setData($updatefacilities);								
+		
+		
+		}	
+		else { return 0;}
+   }
+   return $facilities;
+
+
+
 }
 
 
