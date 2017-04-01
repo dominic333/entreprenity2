@@ -85,7 +85,10 @@ function getCompanyName($entrpID)
 //Function to login a user into center
 function logUserIntoThisCenter($clientid,$vofClientId,$locId,$clocktype,$code)
 {
-	date_default_timezone_set('UTC');
+	
+	$timezone = getTimeZone($locId);	
+//	echo $timezone;
+	date_default_timezone_set($timezone);
 	$loginDate=date("Y-m-d");
 	$loginDateTime=date("Y-m-d H:i:s");
 	$status=1;
@@ -151,10 +154,33 @@ function validateUserQRCode($qrCode)
    }
 }
 
+function validateCoworkHour($qrCode)
+{
+	$qry = "SELECT E.*,C.* FROM entrp_login AS E LEFT JOIN client_facilities_core AS C ON C.client_id = E.vof_clientid WHERE E.qrCode= '".$qrCode."' AND C.co_work_hours_left >0 ";
+	$result= getData($qry);
+//	echo $qry;
+	$count_res=mysqli_num_rows($result);
+   if($count_res > 0)
+   {
+      return 1;
+   } 
+   else 
+   {
+      return 0;
+   }
+
+
+}
+
+
+
 //Function to get users for given location
 //Annie, March 17, 2017
 function getUsersForLocation($locId)
 {
+	$timezone = getTimeZone($locId);	
+//	print_r($timezone);
+		date_default_timezone_set($timezone);
    //	$locId = $_SESSION['locId'];
 	$data = array();		
 	$checkout1=array();
@@ -493,6 +519,76 @@ function updateTime($vofClientId,$code)
 		else { return 0;}
    }
    return $facilities;
+
+
+
+}
+
+//Function to implement timeago
+//By Sajeev(Feb 05,2016)
+function time_in_the_pool($order_date)
+{
+
+	$date_time=$order_date;
+	date_default_timezone_set("Asia/Singapore");
+	$given = new DateTime($date_time);
+	$local= $given->format("Y-m-d H:i:s e") . "\n"; // 2014-12-12 09:00:00 Asia/Singapore
+	
+	$given->setTimezone(new DateTimeZone("UTC"));
+	$utc= $given->format("Y-m-d H:i:s e") . "\n"; // 2014-12-12 01:00:00 UTC
+	
+	$utc_str= strtotime($utc);		
+	$html='<span data-livestamp="'.$utc_str.'"></span>';
+	return $html;	
+}
+
+//Function to get timezone based on location id
+//Annie, March 27,2017
+function getTimeZone($locId)
+{
+	$info		=	'';
+	$query	= "SELECT * FROM location_info WHERE id='".$locId."'";
+	$result 	=	getData($query);
+	$count_res = mysqli_num_rows($result);
+	if($count_res > 0)
+   {
+   	while($row = mysqli_fetch_array($result))
+      {
+      	$info = $row['time_zone'];
+      }
+   }
+//   echo $query;
+   return $info;
+
+
+}
+
+//Function to get plan of clients
+//Annie, March27,2017
+function getClientPlan($vofId)
+{
+	$client_plan	=		array();
+	$query			= 		"SELECT CF.*,CP.*,P.* FROM client_facilities_core as CF 
+					 			 LEFT JOIN client_plans as CP   ON CF.client_id = CP.client_id
+					 			 LEFT JOIN  products as P on CP.product_id = P.product_id
+								 WHERE CP.client_id =".$vofId;
+//	echo $query;
+	$result			=	getData($query);
+	$count_res		= mysqli_num_rows($result);
+	if($count_res > 0)
+   {
+   	while($row = mysqli_fetch_array($result))
+      {
+      	$client_plan['planName'] 		= 	$row['product_name'];
+      	$client_plan['expiryDate']		=	$row['next_renew_date'];
+      }
+   }
+   else 
+   {
+   
+			return 0 ;   
+   }
+	return $client_plan;
 
 
 

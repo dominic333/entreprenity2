@@ -1,5 +1,6 @@
 <?php
 $locId = $_SESSION['locId'];
+$locname = $_SESSION['locName'];
 $result = getUsersForLocation($locId);
 //print_r($result);
 ?>
@@ -66,6 +67,7 @@ $result = getUsersForLocation($locId);
         <!--        </div>-->
         <div class="row">
             <div class="col-md-12">
+            <h1 style="color:white;text-align: right;font-style: italic;"><?php echo $locname; ?> </h1>
                 <h3 style="color:white;">ENTER QR CODE HERE:</h3>
                 <input name="userIdentifier" id="userIdentifier" type="text" autofocus>
                 <!--	              <button name="submit" id="clicksubmit" value="submit" type="submit">Submit</button>-->
@@ -87,15 +89,12 @@ $result = getUsersForLocation($locId);
                     <th>Sl No</th>
                     <th>Client ID</th>
                     <th>Name</th>
-                    <th>Date</th>
-                    <!-- <th>Check Type</th>-->
+<!--                    <th>Date</th>-->
                     <th>Check IN Time</th>
                     <th>Check OUT Time</th>
                     <th>Total hours(in minutes) </th>
-                    <th>Total hours left(in minutes)</th>>
-                    <!--<th>Check In</th>
-                    <th>Check Out</th>
-                    <th>Total hrs</th>-->
+                    <th>Total hours left(in minutes)</th>
+                    <th>Minutes used</th>
                 </tr>
 
                 </thead>
@@ -116,9 +115,12 @@ $result = getUsersForLocation($locId);
                         <td><?php echo $index; ?></td>
                         <td><?php echo $row['vofClientId']; ?></td>
                         <td><?php echo $row['firstname'] . " " . $row['lastname']; ?></td>
-                        <td><?php echo $row['loginDate']; ?></td>
+                        <!--<td><?php //echo $row['loginDate']; ?></td>-->
 
-                        <td><?php echo $row['checkIn']; ?></td>
+                        <td>
+<!--                        <abbr title="<?php echo $row['checkIn']; ?>" class="timeago"><?php echo $row['checkIn']; ?></abbr>-->
+                            <time class="timeago" datetime="<?php echo $row['checkIn']; ?>"><?php echo $row['checkIn']; ?></time>
+                        </td>
                         
                         <td><?php 
                         
@@ -142,6 +144,19 @@ $result = getUsersForLocation($locId);
                         
                         
                         ?></td>
+                        <td><?php
+                       			if($row['checkout']!= "")
+                        		{
+ 											$diff= strtotime($row['checkout'])-strtotime($row['checkIn']);
+ 											echo gmdate("H:i:s", $diff);
+//											echo $diff/60;
+                        		}
+										else 
+										{
+											echo "NA";
+										}  
+                                                
+                         ?></td>
                       
                       
                     </tr>

@@ -7,19 +7,27 @@ require_once('../api/userDefinedFunctions.php');
 require_once('../api/externalLibraries/Mobile_Detect.php');
 require_once('centerFunctions.php');
 require_once('authenticate.php');
-$code = $_POST['qrcode'];
+$code 			= 		$_POST['qrcode'];
+$locId 			= 		$_SESSION['locId'];
 //echo $code;
-$result = fetchUserInfoUsingQRCode($code);
+$result 			= 		fetchUserInfoUsingQRCode($code);
 //print_r($result);
-date_default_timezone_set('UTC');
-$loginDate = date("Y-m-d");
-$locId = $_SESSION['locId'];
-$clientid = $result['clientid'];
+$timezone = getTimezone($locId);	
+//echo $timezone;
+date_default_timezone_set($timezone);
+$loginDate		= 		date("Y-m-d");
 
-$result1 = fetchUserCheckInType($loginDate, $locId, $clientid);
+$clientid		= 		$result['clientid'];
+
+$result1 		= 		fetchUserCheckInType($loginDate, $locId, $clientid);
 
 //echo $result1;
- $credit = getCreditLeft($result['vofClientId']);
+ $credit 		= 		getCreditLeft($result['vofClientId']);
+ 
+$plan 			=		getClientPlan($result['vofClientId']);
+// print_r($plan);
+ 
+ 
 ?>
 
 
@@ -108,6 +116,27 @@ $result1 = fetchUserCheckInType($loginDate, $locId, $clientid);
                                     <td><b>EMAIL :</b>
                                     <td>
                                     <td><?php echo $result['email'] ?>
+                                    <td>
+                                </tr>
+                                <tr>
+                                    <td><b>PLAN NAME :</b>
+                                    <td>
+                                    <td><?php echo $plan['planName'] ?>
+                                    <td>
+                                </tr>
+                                <tr>
+                                    <td><b>EXPIRY DATE :</b>
+                                    <td>
+                                    <?php $date = date('Y-m-d');
+                                    		if($date > $plan['expiryDate'])
+                                    		{
+                                    
+                                     ?>
+                                   		 <td style="color:red;"><?php echo $plan['expiryDate'] ;
+                                    }
+                                    else {?>
+                                        <td><?php echo $plan['expiryDate'] ;
+                                    } ?>
                                     <td>
                                 </tr>
                                  <tr>

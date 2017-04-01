@@ -22,7 +22,7 @@
 			};			
 		})
 		
-		.controller('qrCrtl', function($scope, $http, $location,scannerService) {
+		.controller('qrCrtl', function($scope, $http, $location,$route,scannerService) {
 			
 		 	  var vm = this;	
 		 	 
@@ -38,6 +38,9 @@
 									else
 									{
 										alert('Invalid Product Tag!!!');
+//										$scope.content = "<b>Invalid product tag</b>";
+		    	  						$route.reload();
+										$scope.cameraRequested = true;
 									}
 							  });
 			    $scope.cameraRequested = true;
