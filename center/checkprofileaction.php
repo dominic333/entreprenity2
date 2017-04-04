@@ -90,13 +90,13 @@ else
       	
 			
       }
-    	  /*echo "this   ".$t."-".$r."</br>";
-      	echo $checkOut." - ".$checkIn;*/
+    	 
       	
-      	$diff = abs($checkOut - $checkIn);
+      		$diff = abs($checkOut - $checkIn);
 
-			$minutes   = round($diff / 60,2);
-
+				$minutes   = round($diff / 60,2);
+			
+			
 //			echo "Diffrence".$minutes."minutes";
 //			echo date('H:i:s',$diff);
 
@@ -139,7 +139,7 @@ else
 if($result)
 {
 
-header("Location: dumypage.php?location=".$locCode); 
+header("Location: spacescan.php?location=".$locCode); 
 exit();
 
 }

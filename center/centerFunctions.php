@@ -511,7 +511,7 @@ function updateTime($vofClientId,$code)
 			
 			$updatefacilities		=		"UPDATE client_facilities_core SET co_work_hours_left =".$co_work_left."WHERE client_id =".$vofClientId;
 				
-			echo $updatefacilities;								
+//			echo $updatefacilities;								
 			$re 						=		setData($updatefacilities);								
 		
 		

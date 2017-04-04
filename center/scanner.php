@@ -2,7 +2,6 @@
 $locId = $_SESSION['locId'];
 $locname = $_SESSION['locName'];
 $result = getUsersForLocation($locId);
-//print_r($result);
 ?>
 
 <style>
@@ -115,12 +114,9 @@ $result = getUsersForLocation($locId);
                         <td><?php echo $index; ?></td>
                         <td><?php echo $row['vofClientId']; ?></td>
                         <td><?php echo $row['firstname'] . " " . $row['lastname']; ?></td>
-                        <!--<td><?php //echo $row['loginDate']; ?></td>-->
+<!--                        <td><?php echo $row['loginDate']; ?></td>-->
 
-                        <td>
-<!--                        <abbr title="<?php echo $row['checkIn']; ?>" class="timeago"><?php echo $row['checkIn']; ?></abbr>-->
-                            <time class="timeago" datetime="<?php echo $row['checkIn']; ?>"><?php echo $row['checkIn']; ?></time>
-                        </td>
+                        <td><?php echo $row['checkIn']; ?></td>
                         
                         <td><?php 
                         
